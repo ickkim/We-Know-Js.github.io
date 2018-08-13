@@ -18,4 +18,4 @@ Javascript에 대해 몰랐었던, 오해하고 있었던 점들을 모두 걷�
 
 ## 같이 하고 싶나요?
 
-[KakaoTalk](https://open.kakao.com/o/g3yYdzU)에서 채팅하고 [디스코드](https://discord.gg/TU5uud)를 통해 주마다 스터디를 진행해요.
+[카카오톡](https://open.kakao.com/o/g3yYdzU)에서 채팅하고 [디스코드](https://discord.gg/TU5uud)를 통해 주마다 스터디를 진행해요.
