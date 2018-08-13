@@ -14,6 +14,9 @@ Javascript에 대해 몰랐었던, 오해하고 있었던 점들을 모두 걷�
     - 개인별 자유롭게 아이디어 제안 및 저장소 생성
     - 자유롭게 아이디어 제안 (우리의 조직 안에서 저장소를 자유롭게 생성합니다.)
     - 생성된 저장소에 서로 자유롭게 기여
+3. 그 외 우리의 스터디는 : 
+    - [Wiki](https://github.com/We-Know-JS/We-Know-Js.github.io/wiki)에서 정리되고
+    - [Project](https://github.com/We-Know-JS/We-Know-Js.github.io/projects/2)에서 자유롭게 다음 스터디 목표를 선정합니다.
 
 
 ## 같이 하고 싶나요?
