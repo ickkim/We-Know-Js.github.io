@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.set('views', `${__dirname}/views/pages`);
 app.set('view engine', 'ejs');
 
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}/public`));
 app.use(
   session({
     key: 'WeKnowJS',

@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "아이디",
-    "password": "패스워드",
-    "database": "스키마명",
+    "username": "root",
+    "password": "140902",
+    "database": "awesome",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": "false"
