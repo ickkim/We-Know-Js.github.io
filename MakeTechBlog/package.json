@@ -5,7 +5,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon -w ./src src/bin/www",
+    "test": "set NODE_ENV=test&&mocha -w src/api/posts/posts.spec.js"
   },
   "keywords": [],
   "author": "",

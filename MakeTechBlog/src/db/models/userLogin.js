@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define(
-    'Login',
+  const UserLogin = sequelize.define(
+    'UserLogin',
     {
       userLogin_no: {
         type: DataTypes.INTEGER,
@@ -8,8 +8,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
       },
-      userLogin_id: { type: DataTypes.STRING, allowNull: false },
-      userLogin_pw: { type: DataTypes.STRING, allowNull: false },
+      userLogin_id: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        validate: { len: [5, 20], isLowercase: true },
+      },
+      userLogin_pw: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        validate: { len: [5, 20], isLowercase: true },
+      },
       userLogin_salt: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
@@ -20,6 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  Users.associate = function(models) {};
-  return Users;
+  UserLogin.associate = function(models) {};
+  return UserLogin;
 };

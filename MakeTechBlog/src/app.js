@@ -3,14 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const morgan = require('morgan');
- 
+
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
- 
-app.set('views', `${__dirname}/views`);
+
+app.set('views', `${__dirname}/views/pages`);
 app.set('view engine', 'ejs');
- 
+
 app.use(express.static('public'));
 app.use(
   session({
@@ -23,10 +23,10 @@ app.use(
     },
   }),
 );
- 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
- 
+
 app.use('/', require('./api'));
- 
+
 module.exports = app;

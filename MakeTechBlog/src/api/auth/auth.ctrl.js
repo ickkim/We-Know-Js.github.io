@@ -1,9 +1,7 @@
-const crypto = require('crypto');
 const userDB = require('../../db/Repository/users');
+const loginDB = require('../../db/Repository/userLogin');
 
-const loginView = (req, res) => {
-  return res.render('login');
-};
+const loginView = (req, res) => res.render('login');
 
 const login = async (req, res, next) => {
   const { id, pw } = req.body;
@@ -35,7 +33,30 @@ const login = async (req, res, next) => {
   return res.json({ id: checkId.user_id });
 };
 
+const register = async (req, res, next) => {
+  // TODO : 패스워드 암호화 후 저장 => 유저테이블 저장 Transaction 처리 By jonghwa..
+
+  try {
+    await loginDB.create();
+  } catch (e) {
+    res.locals.message = e.name;
+    res.locals.status = 500;
+    return next(e);
+  }
+};
+
+const registerView = (req, res) => {
+  // TODO : SESSION 있으면 Histroy back...처리
+
+  return res.render('register');
+};
+
+const logout = (req, res) => {};
+
 module.exports = {
   login,
   loginView,
+  register,
+  registerView,
+  logout,
 };

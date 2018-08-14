@@ -8,18 +8,20 @@ router.get('/', (req, res) => {
 router.use('/auth', require('./auth'));
 
 router.use((req, res, next) => {
-  const err = new Error();
-  err.status = 404;
-  err.message = 'NOT FOUND';
+  res.locals.message = 'NOT FOUND';
+  res.locals.status = 404;
   return next(err);
 });
 
 router.use((err, req, res, next) => {
-  const { message, status } = err;
+  const { message, status } = res.locals;
+
+  //TODO : 에러 DB 저장하기 ,, ERROR처리 개선찾아보기 BY Jonghwa
+
   if (Number.isNaN(status)) {
-    console.log('status code 입력 잘못했음..');
+    console.log('으이구 숫자하나 입력못하니 ..? status code 입력 잘못했다..');
   }
-  res.status(status).send(message);
+  return res.status(status).send(message);
 });
 
 module.exports = router;

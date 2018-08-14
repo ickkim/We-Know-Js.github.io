@@ -11,4 +11,5 @@ dbSync()
   })
   .catch(err => {
     console.log('\x1b[31m', 'dbSync Fail!!');
+    console.error(err);
   });
