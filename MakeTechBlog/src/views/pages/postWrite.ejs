@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/css/reset.css' />
+    <link rel='stylesheet' href='/css/postWrite.css'/>
+    <% include ../partials/editorLink.ejs %>
+
+</head>
+
+<body>
+    <% include ../partials/header.ejs %>
+
+        <article>
+            <section>
+                <div class='title'> <input type='text' placeholder='Title'/> </div>
+                <div class='tag'> <input type='text' placeholder='Tag'/> </div> 
+                <div class="editSection"></div>
+            </section>
+        </article>
+
+        <% include ../partials/footer.ejs %>
+
+            <script>
+                $('.editSection').tuiEditor({
+                    initialEditType: 'markdown',
+                    previewStyle: 'vertical',
+                    height: '70vh',
+                    exts: ['scrollSync', 'table', 'uml', {
+                        name: 'chart',
+                        minWidth: 100,
+                        maxWidth: 600,
+                        minHeight: 100,
+                        maxHeight: 300
+                    }]
+                });
+
+            </script>
+
+
+
+
+</body>
+
+</html>

@@ -8,10 +8,10 @@ router
   .post(ctrl.login);
 
 router
-  .route('register')
+  .route('/register')
   .get(ctrl.registerView)
   .post(ctrl.register);
 
-router.get('logout', ctrl.logout);
+router.get('/logout', ctrl.logout);
 
 module.exports = router;

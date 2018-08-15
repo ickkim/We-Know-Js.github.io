@@ -1,0 +1,16 @@
+section {
+    width: 90%;
+    margin: 0 auto;
+}
+
+section input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 35px;
+    border: 1px solid #cccccc;
+    margin: 0 0 15px;
+    padding: 10px;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

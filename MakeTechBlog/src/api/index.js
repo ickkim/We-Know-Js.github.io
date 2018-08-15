@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
 });
 
 router.use('/auth', require('./auth'));
+router.use('/posts', require('./posts'));
 
 router.use((req, res, next) => {
   res.locals.message = 'NOT FOUND';

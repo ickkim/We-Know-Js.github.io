@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      users_name: { type: DataTypes.STRING, allowNull: false },
-      users_isman: { type: DataTypes.BOOLEAN }, // 남자 : 1  여자  : 0 ???
+      users_name: { type: DataTypes.STRING(5), allowNull: false },
+      users_isman: { type: DataTypes.BOOLEAN, defaultValue: 0 }, // 남자 : 1  여자  : 0 ???
       users_email: { type: DataTypes.STRING },
-      users_phone: { type: DataTypes.STRING },
+      users_phone: { type: DataTypes.STRING(15) },
     },
     {
       freezeTableName: true,
