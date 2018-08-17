@@ -2,6 +2,10 @@ header {
     margin-bottom: 110px;
 }
 
+header::after {
+    clear: both;
+}
+
 nav {
     width: 100%;
     height: 70px;
@@ -22,7 +26,6 @@ nav .content {
 nav .content .brand {
     display: inline-block;
     height: inherit;
-    margin-right: 50px;
 }
 
 .brand span {
@@ -33,8 +36,8 @@ nav .content .brand {
 
 .brand span a {
     color: black;
-    font-family: 'Consolas';
     font-weight: blod;
+    font-family: 'Do Hyeon', sans-serif;
 }
 
 nav .content .right_nav {
@@ -42,8 +45,6 @@ nav .content .right_nav {
     float: right;
     line-height: 70px;
 }
-
-nav .content .right_nav ul {}
 
 nav .content .right_nav ul li {
     float: left;
@@ -57,4 +58,57 @@ nav .content .right_nav ul li a {
 
 nav .content .right_nav ul li a:hover {
     color: black
+}
+
+@media (max-width: 400px) {
+    .brand span {
+        font-size: 1.5rem;
+        line-height: 70px;
+        height: inherit;
+    }
+    nav .content .right_nav ul li a {
+        color: #A0A0A0;
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+    nav .content .right_nav ul li:nth-child(4) {
+        display: none;
+    }
+    nav .content .right_nav ul li:nth-child(2) {
+        display: none;
+    }
+}
+
+@media (min-width:401px) and (max-width: 629px) {
+    .brand span {
+        font-size: 1.5rem;
+        line-height: 70px;
+        height: inherit;
+    }
+    nav .content .right_nav {
+        height: inherit;
+        float: right;
+        line-height: 70px;
+    }
+    nav .content .right_nav ul li a {
+        color: #A0A0A0;
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+    nav .content .right_nav ul li:nth-child(4) {
+        display: none;
+    }
+}
+
+@media (min-width:630px) and (max-width: 900px) {
+    .brand span {
+        font-size: 2rem;
+        line-height: 70px;
+        height: inherit;
+    }
+    nav .content .right_nav ul li a {
+        color: #A0A0A0;
+        font-size: 1.2rem;
+        margin-right: 20px;
+    }
 }

@@ -1,9 +1,15 @@
+article {
+    height: auto;
+    overflow: hidden;
+    min-height: 80vh
+}
+
 section {
     width: 90%;
     margin: 0 auto;
 }
 
-section input {
+section .custom input {
     width: 100%;
     box-sizing: border-box;
     height: 35px;
@@ -13,4 +19,22 @@ section input {
     color: black;
     font-weight: bold;
     font-size: 1.2rem;
+}
+
+section button.custom {
+    float: right;
+    overflow: hidden;
+    margin: 20px 0 0 10px;
+    height: 50px;
+    width: 100px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: blueviolet;
+    border-radius: 5%;
+    border: none;
+    color: white;
+}
+
+section button::after {
+    clear: both;
 }

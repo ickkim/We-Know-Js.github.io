@@ -1,9 +1,9 @@
 article {
-    min-height: 80vh
+    min-height: 80vh;
 }
 
 article section {
-    margin: 200px auto 0;
+    margin: 50px auto 0;
     box-sizing: border-box;
     padding: 50px;
     width: 500px;

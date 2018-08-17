@@ -5,9 +5,10 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='/css/reset.css' />
-    <link rel='stylesheet' href='/css/postWrite.css'/>
+    <% include ../partials/essentialCss.ejs %>
+    <link rel='stylesheet' href='/css/postWrite.css' />
     <% include ../partials/editorLink.ejs %>
+
 
 </head>
 
@@ -16,19 +17,27 @@
 
         <article>
             <section>
-                <div class='title'> <input type='text' placeholder='Title'/> </div>
-                <div class='tag'> <input type='text' placeholder='Tag'/> </div> 
-                <div class="editSection"></div>
+                <div class='custom title'>
+                    <input type='text' id='title' name='title' placeholder='Title' /> </div>
+                <div class='custom tag'>
+                    <input type='text' id='tag' name='tag' placeholder='Tag' /> </div>
+                <div id="editSection" id='content' name='content'>
+                </div>
+
+                <button class='custom' onclick='back()'>뒤로가기 </button>
+                <button class='custom' id='submit' onclick='submit()'>작성하기</button>
             </section>
         </article>
 
         <% include ../partials/footer.ejs %>
 
             <script>
-                $('.editSection').tuiEditor({
+                let editor = new tui.Editor({
+                el: document.querySelector('#editSection'),
                     initialEditType: 'markdown',
                     previewStyle: 'vertical',
-                    height: '70vh',
+                    // minHeight: 700,
+                    height: '500px',
                     exts: ['scrollSync', 'table', 'uml', {
                         name: 'chart',
                         minWidth: 100,
@@ -37,6 +46,34 @@
                         maxHeight: 300
                     }]
                 });
+
+
+                function back() {
+                    location.href = "/";
+                }
+
+                function submit() {
+                    let tag = '#'+document.getElementById('tag').value.trim().replace(/\s*,+\s*|\s+/g,' #');
+
+                    const params = {
+                        title: document.getElementById('title').value,
+                        tag: tag,
+                        content: editor.getValue()
+                    }
+                    const xhr = new XMLHttpRequest();
+                    xhr.onload = function () {
+                        if(xhr.status === 200 || xhr.status === 201) {
+                            location.href='/posts/'
+                        } else {
+                            alert(`로그인실패\n${xhr.responseText}`)
+                        }
+                    }
+
+                    xhr.open('POST', '/posts/', true);
+                    xhr.setRequestHeader('Content-type', 'application/json');
+                    xhr.send(JSON.stringify(params));
+
+                }
 
             </script>
 

@@ -8,9 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
       },
-      errorLog_type: { type: DataTypes.STRING, allowNull: true },
-      errorLog_content: { type: DataTypes.STRING, allowNull: true },
-      errorLog_Date: { type: DataTypes.DATE, allowNull: true },
+      errorLog_status: { type: DataTypes.INTEGER(4), allowNull: true },
+      errorLog_content: { type: DataTypes.TEXT, allowNull: true },
       errorLog_isCheck: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
@@ -21,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true,
       tableName: 'tbl_errorLog',
       underscored: true,
-      timestamps: false,
+      timestamps: true,
     },
   );
 

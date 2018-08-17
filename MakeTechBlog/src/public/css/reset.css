@@ -38,3 +38,7 @@ table {
 a {
     text-decoration: none;
 }
+
+article {
+    overflow: hidden;
+}

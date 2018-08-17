@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      users_name: { type: DataTypes.STRING(5), allowNull: false },
-      users_isman: { type: DataTypes.BOOLEAN, defaultValue: 0 }, // 남자 : 1  여자  : 0 ???
+      users_alias: { type: DataTypes.STRING(20), allowNull: false },
       users_email: { type: DataTypes.STRING },
       users_phone: { type: DataTypes.STRING(15) },
     },
@@ -17,9 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'tbl_users',
       underscored: true,
       timestamps: true,
+      paranoid: true,
     },
   );
 
-  Users.associate = function(models) {};
+  Users.associate = function(models) {
+    Users.hasMany(models.Posts, { foreignKey: 'post_writer' });
+  };
   return Users;
 };

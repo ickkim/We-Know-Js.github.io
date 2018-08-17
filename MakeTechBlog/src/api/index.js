@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const errorDB = require('../db/repository/errorLog');
 
 router.get('/', (req, res) => {
   return res.render('index', { title: 'We Know JS' });
@@ -8,20 +9,15 @@ router.get('/', (req, res) => {
 router.use('/auth', require('./auth'));
 router.use('/posts', require('./posts'));
 
-router.use((req, res, next) => {
-  res.locals.message = 'NOT FOUND';
-  res.locals.status = 404;
-  return next(err);
+router.use((req, res) => {
+  res.status(404).render('404');
 });
 
 router.use((err, req, res, next) => {
-  let { message = err.stack, status = 500 } = res.locals;
+  err.status = err.status || 500;
+  errorDB.create(err.status, err.stack);
 
-  if (Number.isNaN(status)) {
-    //TODO : 에러 DB 저장하기 ,, ERROR처리 개선찾아보기 BY Jonghwa
-    console.log('으이구 숫자하나 입력못하니 ..? status code 입력 잘못했다..');
-  }
-  return res.status(status).send(message);
+  res.status(err.status).end(err.stack);
 });
 
 module.exports = router;

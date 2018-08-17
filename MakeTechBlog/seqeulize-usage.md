@@ -23,7 +23,9 @@ models.sequelize.sync({force:true}).then(() => {
 
 
 
-#1. index.js
+# 1. index.js
+
+
 
 ```javascript
 'use strict';
@@ -260,7 +262,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-##3.5.3 belongsToMany
+### 3.5.3 belongsToMany
 
 ### basic
 

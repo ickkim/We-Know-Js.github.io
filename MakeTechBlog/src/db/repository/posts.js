@@ -1,17 +1,31 @@
-const { Posts } = require("../../db");
+const { Posts } = require('../../db');
 
-const findAllList = pageNum => {
+const findAllList = (pageNum = 10) => {
   return Posts.findAll({
     limit: pageNum,
-    attributes: ["post_no", "post_title"]
+    attributes: [
+      'post_no',
+      'post_title',
+      'post_tag',
+      'post_content',
+      'post_count',
+      [
+        Posts.sequelize.fn(
+          'date_format',
+          Posts.sequelize.col('created_at'),
+          '%Y-%m-%d',
+        ),
+        'created_at',
+      ],
+    ],
   });
 };
 
-const creatPost = ({ title, content, categories }) => {
+const creatPost = ({ title, tag, content }) => {
   return Posts.create({
     post_title: title,
+    post_tag: tag,
     post_content: content,
-    post_categories: categories
   });
 };
 
@@ -22,8 +36,8 @@ const findById = id => {
 const deleteById = id => {
   return Posts.destroy({
     where: {
-      post_no: id
-    }
+      post_no: id,
+    },
   });
 };
 
@@ -32,9 +46,9 @@ const updateById = (id, title, content, categories) => {
     {
       post_title: title,
       post_content: content,
-      post_categories: categories
+      post_categories: categories,
     },
-    { where: { post_no: id } }
+    { where: { post_no: id } },
   );
 };
 
@@ -43,5 +57,5 @@ module.exports = {
   deleteById,
   findAllList,
   creatPost,
-  updateById
+  updateById,
 };

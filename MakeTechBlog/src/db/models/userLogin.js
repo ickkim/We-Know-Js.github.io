@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       userLogin_id: {
         type: DataTypes.STRING(20),
         allowNull: false,
+        unique: true,
         validate: { len: [5, 20], isLowercase: true },
       },
       userLogin_pw: {
@@ -25,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'tbl_userLogin',
       underscored: true,
       timestamps: true,
+      paranoid: true,
     },
   );
 

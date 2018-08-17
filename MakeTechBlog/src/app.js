@@ -4,12 +4,13 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const morgan = require('morgan');
 
-if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'));
-}
+// if (process.env.NODE_ENV !== 'test') {
+//   app.use(morgan('dev'));
+// }
 
 app.set('views', `${__dirname}/views/pages`);
 app.set('view engine', 'ejs');
+app.set('port', process.env.port || 3000);
 
 app.use(express.static(`${__dirname}/public`));
 app.use(

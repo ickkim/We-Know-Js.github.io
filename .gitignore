@@ -1,0 +1,6 @@
+MakeTechBlog/src/config/config.json
+MakeTechBlog/node_modules/
+MakeTechBlog/.vscode/
+MakeTechBlog/src/config/
+MakeTechBlog/src/lib/ssl
+MakeTechBlog/src/.env
