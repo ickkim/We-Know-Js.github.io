@@ -42,10 +42,6 @@ section .post h2 {
     margin-bottom: 15px;
 }
 
-section .post h2 a {
-    color: #434a53
-}
-
 section .post h2 a:hover {
     color: black;
 }

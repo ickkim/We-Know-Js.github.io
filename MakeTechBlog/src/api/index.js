@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const errorDB = require('../db/repository/errorLog');
+const postDB = require('../db/repository/posts');
 
-router.get('/', (req, res) => {
-  return res.render('index', { title: 'We Know JS' });
+router.get('/', async (req, res) => {
+  let list = await postDB.findAllList();
+
+  return res.render('index', { list });
 });
 
 router.use('/auth', require('./auth'));

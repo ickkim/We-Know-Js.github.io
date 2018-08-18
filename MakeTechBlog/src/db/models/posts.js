@@ -9,13 +9,13 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       post_title: { type: DataTypes.STRING(100), allowNull: false },
-      post_tag: { type: DataTypes.STRING, allowNull: false },
+      post_tag: { type: DataTypes.STRING(100), allowNull: false },
       post_content: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT('long'),
         allowNull: false,
       },
       post_count: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         defaultValue: 0,
         allowNull: false,
       },

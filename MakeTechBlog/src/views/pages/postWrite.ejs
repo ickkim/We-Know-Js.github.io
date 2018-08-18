@@ -37,24 +37,31 @@
                     initialEditType: 'markdown',
                     previewStyle: 'vertical',
                     // minHeight: 700,
-                    height: '500px',
+                    height: '1000px',
                     exts: ['scrollSync', 'table', 'uml', {
                         name: 'chart',
                         minWidth: 100,
                         maxWidth: 600,
                         minHeight: 100,
                         maxHeight: 300
-                    }]
+                    },'colorSyntax'],
+                    hooks: {
+                        addImageBlobHook(fileOrBlob, callback, source){
+                            console.log(fileOrBlob)
+                            console.log(source)
+                        }
+                    }
                 });
 
 
                 function back() {
-                    location.href = "/";
+                    // location.href = "/";
+                    editor.setValue(editor,'컨텐트입니디ㅏ')
+
                 }
 
                 function submit() {
                     let tag = '#'+document.getElementById('tag').value.trim().replace(/\s*,+\s*|\s+/g,' #');
-
                     const params = {
                         title: document.getElementById('title').value,
                         tag: tag,
@@ -65,7 +72,7 @@
                         if(xhr.status === 200 || xhr.status === 201) {
                             location.href='/posts/'
                         } else {
-                            alert(`로그인실패\n${xhr.responseText}`)
+                            alert(`작성 실패\n${xhr.responseText}`)
                         }
                     }
 

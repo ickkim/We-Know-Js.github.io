@@ -1,0 +1,30 @@
+section.readArea {
+    min-height: 80vh;
+    max-width: 1300px;
+    margin: 100px auto 0;
+}
+
+section .intro {
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+section .intro h1 {
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 30px
+}
+
+section .intro dt {
+    display: inline-block
+}
+
+section .intro dd {
+    display: inline-block
+}
+
+section>p {
+    margin: 70px auto 0;
+    height: 500px;
+}

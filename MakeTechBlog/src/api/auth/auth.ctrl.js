@@ -2,9 +2,9 @@ const userDB = require('../../db/Repository/users');
 const loginDB = require('../../db/Repository/userLogin');
 const db = require('../../db');
 
-const loginView = (req, res) => res.render('login');
+loginView = (req, res) => res.render('login');
 
-const login = async (req, res, next) => {
+login = async (req, res, next) => {
   const { id, pw } = req.body;
   const lenID = id.length;
   const lenPW = pw.length;
@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
   return res.json({ id: checkId.user_id });
 };
 
-const register = async (req, res, next) => {
+register = async (req, res, next) => {
   const { id, pw, name, email, sex, phone } = req.body;
 
   console.log(req.body);
@@ -56,12 +56,12 @@ const register = async (req, res, next) => {
   console.dir(result.dataValues.userLogin_no);
 };
 
-const registerView = (req, res) => {
+registerView = (req, res) => {
   // TODO : SESSION 있으면 Histroy back...처리
   return res.render('register');
 };
 
-const logout = (req, res) => {};
+logout = (req, res) => {};
 
 module.exports = {
   login,

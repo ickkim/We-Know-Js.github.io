@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <% include ../partials/essentialCss.ejs %>
+        <link rel='stylesheet' href='/css/postsRead.css' />
+    
+    
+    </head>
+    
+    <body>
+        <% include ../partials/header.ejs %>
+    
+
+        <article>
+            <section class='readArea'>
+                <div class='intro'>
+                    <h1> <%= post.post_title %> </h1>
+                    <dl class=postInfo> 
+                        <dt>
+                            <dd><%= post.created_at %></dd>
+                        </dt>
+                        <dt>
+                            <dd><%= post.post_count %></dd>
+                        </dt>
+                    </dl>
+
+
+                </div>
+
+                <p class='content'><%= post.post_content %></p>
+            </section>
+        </article>
+
+
+        <% include ../partials/footer.ejs %>
+    </body>
+</html>

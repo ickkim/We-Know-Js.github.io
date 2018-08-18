@@ -20,14 +20,31 @@ create = async (req, res, next) => {
   }
 };
 
-list = async (req, res) => {
+list = async (req, res, next) => {
   let list = await postDB.findAllList();
 
   return res.render('postsList', { list });
+};
+
+show = async (req, res, next) => {
+  let post = await postDB.findById(req.params.id);
+
+  return res.render('postsRead', { post });
+};
+
+update = (req, res, next) => {
+  return res.send('');
+};
+
+remove = (req, res, next) => {
+  return res.send('');
 };
 
 module.exports = {
   createView,
   create,
   list,
+  show,
+  update,
+  remove,
 };

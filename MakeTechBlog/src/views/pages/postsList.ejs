@@ -24,9 +24,9 @@
             <% list.forEach((item,index) => { %>
                 <div class='post'>
                      <p class='tag'><%= item.post_tag %> </p>
-                     <h2><a href='#'><%= item.post_title %></a></h2>
+                     <h2><a href='/posts/<%=item.post_no %>'><%= item.post_title %></a></h2>
                      
-                     <p class='postContent'><%= item.post_content %></p>
+                     <p class='postContent'><a href='/posts/<%=item.post_no %>'><%= item.post_content %></a></p>
                      <div>
                      <span><%= item.created_at %> | view <%= item.post_count %> </span>
                      </div>

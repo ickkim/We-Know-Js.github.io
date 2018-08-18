@@ -9,4 +9,10 @@ router
 
 router.get('/new', ctrl.createView);
 
+router
+  .route('/:id')
+  .get(ctrl.show)
+  .put(ctrl.update)
+  .delete(ctrl.remove);
+
 module.exports = router;
