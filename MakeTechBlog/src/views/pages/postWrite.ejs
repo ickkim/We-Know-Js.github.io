@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% include ../partials/essentialCss.ejs %>
-    <link rel='stylesheet' href='/css/postWrite.css' />
-    <% include ../partials/editorLink.ejs %>
+        <link rel='stylesheet' href='/css/postWrite.css' />
+        <% include ../partials/editorWrite.ejs %>
 
 
 </head>
@@ -33,44 +33,55 @@
 
             <script>
                 let editor = new tui.Editor({
-                el: document.querySelector('#editSection'),
+                    el: document.querySelector('#editSection'),
                     initialEditType: 'markdown',
                     previewStyle: 'vertical',
-                    // minHeight: 700,
-                    height: '1000px',
+                    minHeight: 700,
+                    height: 'auto',
                     exts: ['scrollSync', 'table', 'uml', {
                         name: 'chart',
                         minWidth: 100,
                         maxWidth: 600,
                         minHeight: 100,
                         maxHeight: 300
-                    },'colorSyntax'],
+                    }, 'colorSyntax'],
+
                     hooks: {
-                        addImageBlobHook(fileOrBlob, callback, source){
-                            console.log(fileOrBlob)
-                            console.log(source)
+                        addImageBlobHook(fileOrBlob, callback) {
+                            savePhoto(fileOrBlob, callback)
                         }
-                    }
+                    },
+
                 });
 
 
-                function back() {
-                    // location.href = "/";
-                    editor.setValue(editor,'컨텐트입니디ㅏ')
-
+                function savePhoto(photo, cb) {
+                    const xhr = new XMLHttpRequest();
+                    const formData = new FormData();
+                    formData.append("photo", photo);
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            return cb(`http://localhost:3000/images/${xhr.responseText}`);
+                        }
+                        return alert('업로드 실패')
+                    }
+                    xhr.open('POST', '/posts/file', true);
+                    xhr.send(formData);
                 }
 
                 function submit() {
-                    let tag = '#'+document.getElementById('tag').value.trim().replace(/\s*,+\s*|\s+/g,' #');
+                    let content = editor.getValue().split('\n');
+
+                    let tag = '#' + document.getElementById('tag').value.trim().replace(/\s*,+\s*|\s+/g, ' #');
                     const params = {
                         title: document.getElementById('title').value,
                         tag: tag,
-                        content: editor.getValue()
+                        content: content.toString()
                     }
                     const xhr = new XMLHttpRequest();
                     xhr.onload = function () {
-                        if(xhr.status === 200 || xhr.status === 201) {
-                            location.href='/posts/'
+                        if (xhr.status === 200 || xhr.status === 201) {
+                            location.href = '/posts/'
                         } else {
                             alert(`작성 실패\n${xhr.responseText}`)
                         }

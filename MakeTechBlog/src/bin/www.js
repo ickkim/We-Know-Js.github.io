@@ -11,6 +11,7 @@ dbSync()
     });
   })
   .catch(err => {
-    console.log('\x1b[31m', 'dbSync Fail!!');
-    console.error(err);
+    console.log('디비페일');
+    //console.log('\x1b[31m', 'dbSync Fail!!');
+    console.info(err);
   });

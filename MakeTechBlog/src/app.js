@@ -13,6 +13,7 @@ app.set('view engine', 'ejs');
 app.set('port', process.env.port || 3000);
 
 app.use(express.static(`${__dirname}/public`));
+app.use(express.static(`${__dirname}/uploads`));
 app.use(
   session({
     key: 'WeKnowJS',

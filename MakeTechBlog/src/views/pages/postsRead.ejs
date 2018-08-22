@@ -1,40 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <% include ../partials/essentialCss.ejs %>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include ../partials/essentialCss.ejs %>
         <link rel='stylesheet' href='/css/postsRead.css' />
-    
-    
-    </head>
-    
-    <body>
-        <% include ../partials/header.ejs %>
-    
+        <% include ../partials/editorViewer.ejs %>
+
+</head>
+
+<body>
+    <% include ../partials/header.ejs %>
+
 
         <article>
             <section class='readArea'>
                 <div class='intro'>
-                    <h1> <%= post.post_title %> </h1>
-                    <dl class=postInfo> 
+                    <h1>
+                        <%= post.post_title %>
+                    </h1>
+                    <dl class=postInfo>
                         <dt>
-                            <dd><%= post.created_at %></dd>
+                            <dd>
+                                <%= post.created_at %>
+                            </dd>
                         </dt>
                         <dt>
-                            <dd><%= post.post_count %></dd>
+                            <dd>
+                                <%= post.post_count %>
+                            </dd>
                         </dt>
                     </dl>
 
 
                 </div>
 
-                <p class='content'><%= post.post_content %></p>
+                <div id="content"></div>
+
             </section>
         </article>
 
 
         <% include ../partials/footer.ejs %>
-    </body>
+
+            <script>
+                var content = '<%= post.post_content %>'
+                content = content.replace(/,/gi, '\n').replace(/'&gt;/gi, '>').replace(/&#39;/gi, '\'').replace(/&lt;/gi, '\'')
+                console.log(content);
+                var editor = new tui.Editor({
+                    el: document.querySelector('#content'),
+                    initialValue: content,
+                    exts: ['table', 'uml']
+                });
+
+            </script>
+</body>
+
 </html>
