@@ -1,5 +1,5 @@
-const userDB = require('../../db/Repository/users');
-const loginDB = require('../../db/Repository/userLogin');
+const userDB = require('../../db/repository/users');
+const loginDB = require('../../db/repository/userLogin');
 const db = require('../../db');
 
 loginView = (req, res) => res.render('login');
@@ -15,17 +15,22 @@ login = async (req, res, next) => {
     return next(err);
   }
 
-  const checkId = await userDB.findById(id);
+  const checkId = await loginDB.findById(id);
   if (!checkId) {
     let err = new Error();
     err.status = 404;
-    err.message = 'id x';
+    err.message = 'login fail';
     return next(err);
   }
 
-  req.session.userid = checkId.user_id;
-  return res.send('성공');
-  //return res.json({ id: checkId.user_id });
+  if (checkId.dataValues.userLogin_pw !== pw) {
+    let err = new Error();
+    err.status = 404;
+    err.message = 'login fail';
+    return next(err);
+  }
+  req.session.userid = checkId.dataValues.userLogin_no;
+  return res.send('로그인 성공');
 };
 
 register = async (req, res, next) => {

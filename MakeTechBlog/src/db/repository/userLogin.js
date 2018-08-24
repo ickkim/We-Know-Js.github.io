@@ -1,6 +1,6 @@
 const { UserLogin } = require('../../db');
 
-const create = (id, pw, salt) => {
+create = (id, pw, salt) => {
   return UserLogin.create({
     userLogin_id: id,
     userLogin_pw: pw,
@@ -8,6 +8,13 @@ const create = (id, pw, salt) => {
   });
 };
 
+findById = id => {
+  return UserLogin.find({
+    users_id: id,
+  });
+};
+
 module.exports = {
   create,
+  findById,
 };

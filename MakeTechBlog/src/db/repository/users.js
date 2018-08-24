@@ -10,13 +10,6 @@ create = (no, id, email = 'default@email.com', phone = '000-0000-0000') => {
   });
 };
 
-findById = id => {
-  return Users.find({
-    users_id: id,
-  });
-};
-
 module.exports = {
   create,
-  findById,
 };

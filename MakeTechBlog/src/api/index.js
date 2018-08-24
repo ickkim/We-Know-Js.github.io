@@ -20,7 +20,7 @@ router.use((err, req, res, next) => {
   err.status = err.status || 500;
   errorDB.create(err.status, err.stack);
 
-  res.status(err.status).end(err.stack);
+  res.status(err.status).end(err.message);
 });
 
 module.exports = router;
