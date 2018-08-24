@@ -19,26 +19,20 @@ login = async (req, res, next) => {
   if (!checkId) {
     let err = new Error();
     err.status = 404;
-    err.message = '존재하지 않는 아이디 입니다.';
-    return next(err);
-  }
-  if (pw !== checkId.user_pw) {
-    let err = new Error();
-    err.status = 401;
-    err.message = '패스워드가 올바르지 않습니다.';
+    err.message = 'id x';
     return next(err);
   }
 
   req.session.userid = checkId.user_id;
-
-  return res.json({ id: checkId.user_id });
+  return res.send('성공');
+  //return res.json({ id: checkId.user_id });
 };
 
 register = async (req, res, next) => {
-  const { id, pw, name, email, sex, phone } = req.body;
+  const { id, pw, email, alias, phone } = req.body;
 
   console.log(req.body);
-  console.log(id, pw, name, email, sex, phone);
+  console.log(id, pw, alias, email, phone);
   let result, transaction;
 
   try {
@@ -46,14 +40,16 @@ register = async (req, res, next) => {
 
     result = await loginDB.create(id, pw, 2222);
     const userNo = result.dataValues.userLogin_no;
-    await userDB.create(userNo, name);
+    await userDB.create(userNo, id);
     await transaction.commit();
   } catch (e) {
     await transaction.rollback();
+    console.error(e);
     return next(e);
   }
 
   console.dir(result.dataValues.userLogin_no);
+  return res.send('회원가입..');
 };
 
 registerView = (req, res) => {
