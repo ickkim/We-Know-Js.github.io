@@ -8,7 +8,7 @@
     <% include ../partials/essentialCss.ejs %>
         <link rel='stylesheet' href='/css/postsRead.css' />
         <% include ../partials/editorViewer.ejs %>
-
+            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
@@ -39,6 +39,10 @@
 
                 <div id="content"></div>
 
+                <div id='hm'>
+
+                </div>
+
             </section>
         </article>
 
@@ -46,8 +50,11 @@
         <% include ../partials/footer.ejs %>
 
             <script>
-                var content = '<%= post.post_content %>'
-                content = content.replace(/,/gi, '\n').replace(/'&gt;/gi, '>').replace(/&#39;/gi, '\'').replace(/&lt;/gi, '\'')
+                var content = `<%= post.post_content %>`
+                console.log(content);
+                content = content.replace(/ㅥ/g, '\`').replace(/&gt;/g, '>').replace(/&#39;/g, '\'').replace(/&lt;/g, '<').replace(/&#34;/g, '\"')
+
+                //content = content.replace(/,/gi, '\n').replace(/'&gt;/gi, '>').replace(/&#39;/gi, '\'').replace(/&lt;/gi, '\'').split('\n').map(item => item.substr(1, item.length - 2)).join('\n')
                 console.log(content);
                 var editor = new tui.Editor({
                     el: document.querySelector('#content'),

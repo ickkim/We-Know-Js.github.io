@@ -33,11 +33,10 @@
 
             <script>
                 let editor = new tui.Editor({
-                    el: document.querySelector('#editSection'),
+                    el: document.getElementById('editSection'),
                     initialEditType: 'markdown',
                     previewStyle: 'vertical',
-                    minHeight: 700,
-                    height: 'auto',
+                    height: '100vh',
                     exts: ['scrollSync', 'table', 'uml', {
                         name: 'chart',
                         minWidth: 100,
@@ -70,13 +69,13 @@
                 }
 
                 function submit() {
-                    let content = editor.getValue().split('\n');
+                    let temp = editor.getValue().replace(/\`/g, 'ㅥ')
 
                     let tag = '#' + document.getElementById('tag').value.trim().replace(/\s*,+\s*|\s+/g, ' #');
                     const params = {
                         title: document.getElementById('title').value,
                         tag: tag,
-                        content: content.toString()
+                        content: temp
                     }
                     const xhr = new XMLHttpRequest();
                     xhr.onload = function () {
@@ -89,7 +88,7 @@
 
                     xhr.open('POST', '/posts/', true);
                     xhr.setRequestHeader('Content-type', 'application/json');
-                    xhr.send(JSON.stringify(params));
+                    xhr.send(JSON.stringify(params))
 
                 }
 

@@ -18,6 +18,7 @@ const findAllList = (pageNum = 10) => {
         'created_at',
       ],
     ],
+    order: [['created_at', 'DESC']],
   });
 };
 
