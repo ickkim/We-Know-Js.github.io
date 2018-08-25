@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% include ../partials/essentialCss.ejs %>
-    <link rel='stylesheet' href='/css/postList.css' />
+        <link rel='stylesheet' href='/css/postList.css' />
 
 </head>
 
@@ -15,37 +15,39 @@
 
     <% include ../partials/header.ejs %>
 
-    <div class="postArea">
-        <article>
+        <div class="postArea">
+            <article>
 
-            <section>
-            <input type="button"  value= '글작성' class='btnNew' onclick="location.href='/posts/new'"/>
+                <section>
+                    <input type="button" value='글작성' class='btnNew' onclick="location.href='/posts/new'" />
 
-            <% list.forEach((item,index) => { %>
-                <div class='post'>
-                     <p class='tag'><%= item.post_tag %> </p>
-                     <h2><a href='/posts/<%=item.post_no %>'><%= item.post_title %></a></h2>
-                     
-                     <p class='postContent'><a href='/posts/<%=item.post_no %>'><%= item.post_content %></a></p>
-                     <div>
-                     <span><%= item.created_at %> | view <%= item.post_count %> </span>
-                     </div>
-                     
-                </div>
-            <% }) %>
+                    <% list.forEach((item,index) => { %>
+                        <div class='post'>
+                            <p class='tag'>
+                                <%= item.tag %>
+                            </p>
+                            <h2><a href='/posts/<%=item.no %>'><%= item.title %></a></h2>
 
-            <div class='paging'> </div>
+                            <div>
+                                <span><%= item.created_at %> | view
+                                        <%= item.count %> </span>
+                            </div>
 
-            </section>
-        </article>
+                        </div>
+                        <% }) %>
 
-        <aside>
-            사이드바 예정
-        <aside>
-    </div>
-    
-    <% include ../partials/footer.ejs %>
-    
+                            <div class='paging'> </div>
+
+                </section>
+            </article>
+
+            <aside>
+                사이드바 예정
+                <aside>
+        </div>
+
+        <% include ../partials/footer.ejs %>
+
 </body>
 
 </html>

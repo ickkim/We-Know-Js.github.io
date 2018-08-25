@@ -2,15 +2,15 @@ module.exports = (sequelize, DataTypes) => {
   const errorLog = sequelize.define(
     'errorLog',
     {
-      errorLog_no: {
+      no: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      errorLog_status: { type: DataTypes.INTEGER(4), allowNull: true },
-      errorLog_content: { type: DataTypes.TEXT, allowNull: true },
-      errorLog_isCheck: {
+      status: { type: DataTypes.INTEGER(4), allowNull: true },
+      content: { type: DataTypes.TEXT, allowNull: true },
+      isCheck: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
         defaultValue: false,

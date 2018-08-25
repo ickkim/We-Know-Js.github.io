@@ -1,68 +1,97 @@
 const userDB = require('../../db/repository/users');
 const loginDB = require('../../db/repository/userLogin');
 const db = require('../../db');
+const validation = require('../../lib/validation/validation');
 
-loginView = (req, res) => res.render('login');
+loginView = (req, res) => {
+  res.render('login');
+};
 
 login = async (req, res, next) => {
-  const { id, pw } = req.body;
-  const lenID = id.length;
-  const lenPW = pw.length;
-  if (lenID < 5 || lenID > 20 || lenPW < 5 || lenPW > 25) {
-    const err = new Error();
-    err.status = 400;
-    err.message = '형식이 올바르지 않습니다.';
-    return next(err);
+  let { id, pw } = req.body;
+
+  if (!validation.arrayElementIsString([id, pw])) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
   }
+
+  if (!(validation.isLength(id, 5, 20) && validation.isLength(pw, 5, 20))) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  id = id.toLowerCase();
+  pw = pw.toLowerCase();
 
   const checkId = await loginDB.findById(id);
-  if (!checkId) {
-    let err = new Error();
-    err.status = 404;
-    err.message = 'login fail';
-    return next(err);
+
+  if (!checkId || checkId.dataValues.pw !== pw) {
+    return res.status(404).json('아이디 혹은 패스워드가 일치하지 않습니다.');
   }
 
-  if (checkId.dataValues.userLogin_pw !== pw) {
-    let err = new Error();
-    err.status = 404;
-    err.message = 'login fail';
-    return next(err);
-  }
-  req.session.userid = checkId.dataValues.userLogin_no;
-  return res.send('로그인 성공');
+  req.session.isLogin = true;
+  req.session.userid = checkId.dataValues.no;
+  return res.status(200);
 };
 
 register = async (req, res, next) => {
-  const { id, pw, email, alias, phone } = req.body;
+  let { id, pw, nickname } = req.body;
 
-  console.log(req.body);
-  console.log(id, pw, alias, email, phone);
+  if (!validation.arrayElementIsString([id, pw, nickname])) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  if (
+    !(
+      validation.isLength(id, 5, 20) &&
+      validation.isLength(pw, 5, 20) &&
+      validation.isLength(nickname, 2, 20)
+    )
+  ) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  id = id.toLowerCase();
+  pw = pw.toLowerCase();
+  let isExistId;
+  try {
+    isExistId = await loginDB.findById(id);
+  } catch (e) {
+    return next(e);
+  }
+
+  if (isExistId) {
+    return res.status(400).json('이미존재하는 아이디입니다.');
+  }
   let result, transaction;
 
   try {
     transaction = await db.sequelize.transaction();
 
-    result = await loginDB.create(id, pw, 2222);
-    const userNo = result.dataValues.userLogin_no;
-    await userDB.create(userNo, id);
+    result = await loginDB.create(id, pw, nickname, transaction);
+    const userNo = result.dataValues.no;
+    await userDB.create(userNo, id, nickname, transaction);
     await transaction.commit();
   } catch (e) {
     await transaction.rollback();
-    console.error(e);
     return next(e);
   }
 
-  console.dir(result.dataValues.userLogin_no);
-  return res.send('회원가입..');
+  return res.status(200).end();
 };
 
 registerView = (req, res) => {
-  // TODO : SESSION 있으면 Histroy back...처리
   return res.render('register');
 };
 
-logout = (req, res) => {};
+logout = (req, res, next) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.clearCookie('WeKnowJS');
+    res.redirect('/');
+  });
+};
 
 module.exports = {
   login,

@@ -2,21 +2,21 @@ module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define(
     'Users',
     {
-      users_no: {
+      no: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      users_id: {
-        type: DataTypes.STRING,
+      id: {
+        type: DataTypes.STRING(20),
         allowNull: true,
+        unique: true,
+        validate: { len: [5, 20], isLowercase: true },
       },
-      users_alias: {
+      nickname: {
         type: DataTypes.STRING(20),
         allowNull: true,
       },
-      users_email: { type: DataTypes.STRING },
-      users_phone: { type: DataTypes.STRING(15) },
     },
     {
       freezeTableName: true,
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Users.associate = function(models) {
-    Users.hasMany(models.Posts, { foreignKey: 'post_writer' });
+    Users.hasMany(models.Posts, { foreignKey: 'writer' });
   };
   return Users;
 };

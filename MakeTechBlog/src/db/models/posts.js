@@ -2,19 +2,19 @@ module.exports = (sequelize, DataTypes) => {
   const Posts = sequelize.define(
     'Posts',
     {
-      post_no: {
+      no: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      post_title: { type: DataTypes.STRING(100), allowNull: false },
-      post_tag: { type: DataTypes.STRING(100), allowNull: false },
-      post_content: {
+      title: { type: DataTypes.STRING(100), allowNull: false },
+      tag: { type: DataTypes.STRING(100), allowNull: false },
+      content: {
         type: DataTypes.TEXT('long'),
         allowNull: false,
       },
-      post_count: {
+      count: {
         type: DataTypes.INTEGER.UNSIGNED,
         defaultValue: 0,
         allowNull: false,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Posts.associate = function(models) {
-    Posts.belongsTo(models.Users, { foreignKey: 'post_writer' });
+    Posts.belongsTo(models.Users, { foreignKey: 'writer' });
   };
 
   return Posts;

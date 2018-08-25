@@ -1,31 +1,11 @@
 const db = require('../db');
+const bulk = require('./dbInit');
 
 module.exports = () => {
-  return db.sequelize.sync({}).then(() => {}); // db sync
+  // return db.sequelize.sync({}).then(() => {}); // db sync
 
-  // return db.sequelize.sync({ force: true }).then(() => {
-  //   db.Posts.bulkCreate([
-  //     {
-  //       post_title:
-  //         '안녕하세요!! 블로그입니다 왈왈왈왈 블로그 헬레레레레레로로로 안녕하세요!! 블로그입니다 왈왈왈왈 블로그 헬레레레레레로로로',
-  //       post_tag: '#아무나 #구경하러 #와바',
-  //       post_content:
-  //         '핼레레레레레레 이쩌고 저쩌고한 그런 내용입니다하사앙ㅁ낭ㅁ나마컨텐트 핼레레레레레레 이쩌고 저쩌고한 그런 내용입니다하사앙ㅁ낭ㅁ나마',
-  //     },
-  //     {
-  //       post_title:
-  //         '안녕하세요!! 블로그입니다 왈왈왈왈 블로그 헬레레레레레로로로 안녕하세요!! 블로그입니다 왈왈왈왈 블로그 헬레레레레레로로로',
-  //       post_tag: '#아무나 #구경하러 #와바',
-  //       post_content:
-  //         '핼레레레레레레 이쩌고 저쩌고한 그런 내용입니다하사앙ㅁ낭ㅁ나마컨텐트 핼레레레레레레 이쩌고 저쩌고한 그런 내용입니다하사앙ㅁ낭ㅁ나마',
-  //     },
-  //     {
-  //       post_title:
-  //         '안녕하세요!! 블로그입니다 왈왈왈왈 블로그 헬레레레레레로로로 안녕하세요!! 블로그입니다 왈왈왈왈 블로그 헬레레레레레로로로',
-  //       post_tag: '#아무나 #구경하러 #와바',
-  //       post_content:
-  //         '핼레레레레레레 이쩌고 저쩌고한 그런 내용입니다하사앙ㅁ낭ㅁ나마컨텐트 핼레레레레레레 이쩌고 저쩌고한 그런 내용입  니다하사앙ㅁ낭ㅁ나마',
-  //     },
-  //   ]);
-  // }); // dbsync + db 삭제후 다시 만듬.. 데이터삭제됨 주의..
+  return db.sequelize.sync({ force: true }).then(() => {
+    bulk.post();
+    bulk.grade();
+  }); //dbsync + db 삭제후 다시 만듬.. 데이터삭제됨 주의..
 };

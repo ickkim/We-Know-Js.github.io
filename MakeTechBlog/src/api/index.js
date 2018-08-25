@@ -18,7 +18,8 @@ router.use((req, res) => {
 
 router.use((err, req, res, next) => {
   err.status = err.status || 500;
-  errorDB.create(err.status, err.stack);
+  err.message = err.message || 'Server Error';
+  //errorDB.create(err.status, err.stack);
 
   res.status(err.status).end(err.message);
 });

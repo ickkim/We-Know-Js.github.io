@@ -2,80 +2,82 @@
 <html lang="ko">
 
 <head>
-  <title>Title</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <% include ../partials/essentialCss.ejs %>
-  <link rel='stylesheet' href='/css/index.css'/>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include ../partials/essentialCss.ejs %>
+        <link rel='stylesheet' href='/css/index.css' />
 
 
-  </head>
-  
-  <body>
-  
-  
-      <% include ../partials/header.ejs %>
-  
-      <div class="postArea">
-          <article>
-  
-              <section>
+</head>
 
-              <% list.forEach((item,index) => { %>
-              <div class='post'>
-                   <p class='tag'><%= item.post_tag %> </p>
-                   <h2><a href='/posts/<%=item.post_no %>'><%= item.post_title %></a></h2>
-                   
-                   <p class='postContent'><a href='/posts/<%=item.post_no %>'><%= item.post_content %></a></p>
-                   <div>
-                   <span><%= item.created_at %> | view <%= item.post_count %> </span>
-                   </div>
-                   
-              </div>
-          <% }) %>
-  
-              <div class='paging'> </div>
-  
-              </section>
-          </article>
-  
-          <aside>
-            <section class='NumberOfVisitor'>
-
-                <p class='total'>total | 100000</p>
-                <p class='monthly'>monthly | 30000</p>
-                <p class='today'>today | 300</p>
-            </section>
-
-            <section div='writer'> 
-            <h2> 글쓴이 선택 </h2>
-              <ul>
-                <li>듀비퐁</li>
-                <li>ㅣㅣㅑㅣ</li>
-                <li>성동구 흰띠</li>
-                <li>오초</li>
-                <li>도트</li>
-                <li>baaaaam</li>
-              </ul>
-            </section>
+<body>
 
 
-            <section div='hotPost'> 
-                <h2>핫 게시글</h2>
-                  <ul>
-                  <li>1</li>
-                 <li>2</li>
-                 <li>3</li>
-                 <li>4</li>
-                 <li>5</li>
-                 </ul>
-             </section>
+    <% include ../partials/header.ejs %>
 
-          <aside>
-          
-      </div>
-      
-      <% include ../partials/footer.ejs %>
+        <div class="postArea">
+            <article>
+
+                <section>
+
+                    <% list.forEach((item,index) => { %>
+                        <div class='post'>
+                            <p class='tag'>
+                                <%= item.tag %>
+                            </p>
+                            <h2><a href='/posts/<%=item.no %>'><%= item.title %></a></h2>
+
+                            <div>
+                                <span><%= item.created_at %> | view
+                                        <%= item.count %> </span>
+                            </div>
+
+                        </div>
+                        <% }) %>
+
+                            <div class='paging'> </div>
+
+                </section>
+            </article>
+
+            <aside>
+                <section class='NumberOfVisitor'>
+
+                    <p class='total'>total | 100000</p>
+                    <p class='monthly'>monthly | 30000</p>
+                    <p class='today'>today | 300</p>
+                </section>
+
+                <section div='writer'>
+                    <h2> 글쓴이 선택 </h2>
+                    <ul>
+                        <li>듀비퐁</li>
+                        <li>ㅣㅣㅑㅣ</li>
+                        <li>성동구 흰띠</li>
+                        <li>오초</li>
+                        <li>도트</li>
+                        <li>baaaaam</li>
+                    </ul>
+                </section>
+
+
+                <section div='hotPost'>
+                    <h2>핫 게시글</h2>
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </section>
+
+                <aside>
+
+        </div>
+
+        <% include ../partials/footer.ejs %>
 
 </body>
 

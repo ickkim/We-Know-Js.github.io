@@ -2,8 +2,8 @@ const { errorLog } = require('../../db');
 
 const create = (status, content) => {
   return errorLog.create({
-    errorLog_status: status,
-    errorLog_content: content,
+    status,
+    content,
   });
 };
 

@@ -19,7 +19,7 @@
             <section class='readArea'>
                 <div class='intro'>
                     <h1>
-                        <%= post.post_title %>
+                        <%= post.title %>
                     </h1>
                     <dl class=postInfo>
                         <dt>
@@ -29,7 +29,7 @@
                         </dt>
                         <dt>
                             <dd>
-                                <%= post.post_count %>
+                                <%= post.count %>
                             </dd>
                         </dt>
                     </dl>
@@ -50,7 +50,7 @@
         <% include ../partials/footer.ejs %>
 
             <script>
-                var content = `<%= post.post_content %>`
+                var content = `<%= post.content %>`
                 console.log(content);
                 content = content.replace(/ㅥ/g, '\`').replace(/&gt;/g, '>').replace(/&#39;/g, '\'').replace(/&lt;/g, '<').replace(/&#34;/g, '\"')
 

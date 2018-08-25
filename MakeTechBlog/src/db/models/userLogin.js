@@ -2,24 +2,24 @@ module.exports = (sequelize, DataTypes) => {
   const UserLogin = sequelize.define(
     'UserLogin',
     {
-      userLogin_no: {
+      no: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      userLogin_id: {
+      id: {
         type: DataTypes.STRING(20),
         allowNull: false,
         unique: true,
         validate: { len: [5, 20], isLowercase: true },
       },
-      userLogin_pw: {
+      pw: {
         type: DataTypes.STRING(20),
         allowNull: false,
         validate: { len: [5, 20], isLowercase: true },
       },
-      userLogin_salt: { type: DataTypes.INTEGER, allowNull: false },
+      salt: { type: DataTypes.STRING, allowNull: false },
     },
     {
       freezeTableName: true,

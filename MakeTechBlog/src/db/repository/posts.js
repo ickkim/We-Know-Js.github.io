@@ -4,11 +4,10 @@ const findAllList = (pageNum = 10) => {
   return Posts.findAll({
     limit: pageNum,
     attributes: [
-      'post_no',
-      'post_title',
-      'post_tag',
-      'post_content',
-      'post_count',
+      'no',
+      'title',
+      'tag',
+      'count',
       [
         Posts.sequelize.fn(
           'date_format',
@@ -24,9 +23,9 @@ const findAllList = (pageNum = 10) => {
 
 const creatPost = ({ title, tag, content }) => {
   return Posts.create({
-    post_title: title,
-    post_tag: tag,
-    post_content: content,
+    title: title,
+    tag: tag,
+    content: content,
   });
 };
 
@@ -37,7 +36,7 @@ const findById = id => {
 const deleteById = id => {
   return Posts.destroy({
     where: {
-      post_no: id,
+      no: id,
     },
   });
 };
@@ -45,11 +44,11 @@ const deleteById = id => {
 const updateById = (id, title, content, categories) => {
   return Posts.update(
     {
-      post_title: title,
-      post_content: content,
-      post_categories: categories,
+      title,
+      content,
+      categories,
     },
-    { where: { post_no: id } },
+    { where: { no: id } },
   );
 };
 

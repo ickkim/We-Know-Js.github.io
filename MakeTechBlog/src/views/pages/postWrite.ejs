@@ -60,7 +60,7 @@
                     formData.append("photo", photo);
                     xhr.onload = function () {
                         if (xhr.status === 200) {
-                            return cb(`http://localhost:3000/images/${xhr.responseText}`);
+                            return cb(`http://localhost/images/${xhr.responseText}`);
                         }
                         return alert('업로드 실패')
                     }
