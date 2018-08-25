@@ -1,11 +1,10 @@
 const { UserLogin } = require('../../db');
 
-create = (id, pw, salt = '11', transaction) => {
+create = (id, pw, transaction) => {
   return UserLogin.create(
     {
       id,
-      pw,
-      salt,
+      hash: pw,
     },
     { transaction },
   );

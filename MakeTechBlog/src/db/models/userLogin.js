@@ -14,12 +14,11 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: { len: [5, 20], isLowercase: true },
       },
-      pw: {
-        type: DataTypes.STRING(20),
+      hash: {
+        type: DataTypes.STRING(100),
         allowNull: false,
-        validate: { len: [5, 20], isLowercase: true },
+        validate: { len: [40, 100] },
       },
-      salt: { type: DataTypes.STRING, allowNull: false },
     },
     {
       freezeTableName: true,

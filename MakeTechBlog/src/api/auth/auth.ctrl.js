@@ -2,6 +2,7 @@ const userDB = require('../../db/repository/users');
 const loginDB = require('../../db/repository/userLogin');
 const db = require('../../db');
 const validation = require('../../lib/validation/validation');
+const bcrypt = require('bcrypt');
 
 loginView = (req, res) => {
   res.render('login');
@@ -22,14 +23,15 @@ login = async (req, res, next) => {
   pw = pw.toLowerCase();
 
   const checkId = await loginDB.findById(id);
+  let { no, hash } = checkId.dataValues;
 
-  if (!checkId || checkId.dataValues.pw !== pw) {
+  if (!(await bcrypt.compare(pw, hash))) {
     return res.status(404).json('아이디 혹은 패스워드가 일치하지 않습니다.');
   }
-
+  console.log(`같음`);
   req.session.isLogin = true;
-  req.session.userid = checkId.dataValues.no;
-  return res.status(200);
+  req.session.userid = no;
+  return res.status(200).end();
 };
 
 register = async (req, res, next) => {
@@ -61,12 +63,21 @@ register = async (req, res, next) => {
   if (isExistId) {
     return res.status(400).json('이미존재하는 아이디입니다.');
   }
-  let result, transaction;
 
+  let salt;
+  let hash;
+  try {
+    salt = await bcrypt.genSalt(11);
+    hash = await bcrypt.hash(pw, salt);
+  } catch (e) {
+    return next(e);
+  }
+
+  let result, transaction;
   try {
     transaction = await db.sequelize.transaction();
 
-    result = await loginDB.create(id, pw, nickname, transaction);
+    result = await loginDB.create(id, hash, transaction);
     const userNo = result.dataValues.no;
     await userDB.create(userNo, id, nickname, transaction);
     await transaction.commit();

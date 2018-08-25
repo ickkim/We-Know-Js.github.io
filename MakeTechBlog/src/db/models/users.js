@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(20),
         allowNull: true,
       },
+      grade: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 2,
+      },
     },
     {
       freezeTableName: true,
@@ -29,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Users.associate = function(models) {
     Users.hasMany(models.Posts, { foreignKey: 'writer' });
+    Users.belongsTo(models.UserGrade, { target: 'grade' });
   };
   return Users;
 };

@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  UserGrade.associate = function(models) {};
+  UserGrade.associate = function(models) {
+    UserGrade.hasMany(models.Users);
+  };
 
   return UserGrade;
 };

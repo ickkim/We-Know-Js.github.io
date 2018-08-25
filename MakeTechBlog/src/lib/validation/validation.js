@@ -19,7 +19,6 @@ isLength = (val, min, max = Number.MAX_SAFE_INTEGER) => {
   if (min > max) {
     [min, max] = [max, min];
   }
-  console.log(max, min);
   return valLen > min && valLen < max;
 };
 
