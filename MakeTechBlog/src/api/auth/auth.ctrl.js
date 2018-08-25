@@ -4,7 +4,7 @@ const db = require('../../db');
 const validation = require('../../lib/validation/validation');
 const bcrypt = require('bcrypt');
 
-loginView = (req, res) => {
+loginView = (req, res, next) => {
   res.render('login');
 };
 
@@ -22,13 +22,28 @@ login = async (req, res, next) => {
   id = id.toLowerCase();
   pw = pw.toLowerCase();
 
-  const checkId = await loginDB.findById(id);
-  let { no, hash } = checkId.dataValues;
-
-  if (!(await bcrypt.compare(pw, hash))) {
+  let checkId;
+  try {
+    checkId = await loginDB.findById(id);
+  } catch (e) {
+    next(e);
+  }
+  if (!checkId) {
     return res.status(404).json('아이디 혹은 패스워드가 일치하지 않습니다.');
   }
-  console.log(`같음`);
+
+  let { no, hash } = checkId.dataValues;
+  let checkPw;
+  try {
+    checkPw = await bcrypt.compare(pw, hash);
+  } catch (e) {
+    next(e);
+  }
+
+  if (!checkPw) {
+    return res.status(404).json('아이디 혹은 패스워드가 일치하지 않습니다.');
+  }
+
   req.session.isLogin = true;
   req.session.userid = no;
   return res.status(200).end();
