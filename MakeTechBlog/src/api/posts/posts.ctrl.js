@@ -1,4 +1,5 @@
 const postDB = require('../../db/repository/posts');
+const paging = require('../../lib/post/paging');
 
 createView = (req, res) => {
   return res.render('postWrite');
@@ -9,7 +10,7 @@ create = async (req, res, next) => {
   if (!title || !tag || !content) {
     return res.status(400).end('입력이 올바르지 않습니다.');
   }
-  console.info(content);
+
   try {
     let result = await postDB.creatPost(req.body);
     return res.status(201).json(result);
@@ -19,9 +20,23 @@ create = async (req, res, next) => {
 };
 
 list = async (req, res, next) => {
-  let list = await postDB.findAllList();
+  let postList, totalCnt, pagingInfo;
 
-  return res.render('postsList', { list });
+  try {
+    totalCnt = await postDB.totalCount();
+  } catch (e) {
+    next(e);
+  }
+
+  pagingInfo = paging.paging(totalCnt, req.query);
+  const offset = (pagingInfo.page - 1) * pagingInfo.perPageNum;
+  try {
+    postList = await postDB.findAllList(pagingInfo.perPageNum, offset);
+  } catch (e) {
+    next(e);
+  }
+
+  return res.render('postsList', { postList, pagingInfo });
 };
 
 show = async (req, res, next) => {
@@ -38,7 +53,6 @@ remove = (req, res, next) => {
 };
 
 uploadImage = (req, res, next) => {
-  console.log(req.files);
   return res.send(req.files[0].filename);
 };
 

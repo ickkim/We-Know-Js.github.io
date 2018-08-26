@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const errorDB = require('../db/repository/errorLog');
-const postDB = require('../db/repository/posts');
 
 router.get('/', async (req, res) => {
-  let list = await postDB.findAllList();
-
-  return res.render('noauth/index', { list });
+  return res.status(301).redirect('/posts');
 });
 
 router.get('/about', async (req, res) => {

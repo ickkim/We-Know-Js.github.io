@@ -7,28 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% include ../partials/noauth/essentialCss.ejs %>
         <link rel='stylesheet' href='/css/postList.css' />
-
 </head>
 
 <body>
 
 
     <% include ../partials/noauth/header.ejs %>
-
         <div class="postArea">
             <article>
-
                 <section>
-                    <input type="button" value='글작성' class='btnNew' onclick="location.href='/posts/new'" />
-
-                    <% list.forEach((item,index) => { %>
+                    <% postList.forEach((item,index) => { %>
                         <div class='post'>
                             <p class='tag'>
                                 <%= item.tag %>
                             </p>
+
                             <h2><a href='/posts/<%=item.no %>'><%= item.title %></a></h2>
 
-                            <div>
+                            <div class='postInfo'>
                                 <span><%= item.created_at %> | view
                                         <%= item.count %> </span>
                             </div>
@@ -36,14 +32,67 @@
                         </div>
                         <% }) %>
 
-                            <div class='paging'> </div>
+                            <div class='paging'>
+                                <% if(pagingInfo.page >10) { %>
+                                    <div class="pagingArrow">
+                                        <a href="/posts?page=<%=pagingInfo.startPage -1%>"><</a>
+                                    </div>
+                                    <% } %>
 
+                                        <% for (let i=pagingInfo.startPage; i <=pagingInfo.endPage ; i++) { %>
+                                            <div class="pagingNum">
+                                                <% if(parseInt(pagingInfo.page) === i) { %>
+                                                    <a href="/posts?page=<%=i%>" class='targetPage'><%= i %></a>
+                                                    <% }else { %>
+                                                        <a href="/posts?page=<%=i%>"><%= i %></a>
+                                                        <% } %>
+                                            </div>
+
+                                            <% } %>
+                                                <% if (pagingInfo.endPage < pagingInfo.totalPage) { %>
+                                                    <div class="pagingArrow">
+                                                        <a href="/posts?page=<%=pagingInfo.endPage +1%>">></a>
+                                                    </div>
+                                                    <% } %>
+
+                            </div>
                 </section>
             </article>
 
             <aside>
-                사이드바 예정
+                <section class='NumberOfVisitor'>
+
+                    <p class='total'>total | 100000</p>
+                    <p class='monthly'>monthly | 30000</p>
+                    <p class='today'>today | 300</p>
+                </section>
+
+                <section div='writer'>
+                    <h2> 글쓴이 선택 </h2>
+                    <ul>
+                        <li>듀비퐁</li>
+                        <li>ㅣㅣㅑㅣ</li>
+                        <li>성동구 흰띠</li>
+                        <li>오초</li>
+                        <li>도트</li>
+                        <li>baaaaam</li>
+                    </ul>
+                </section>
+
+
+                <section div='hotPost'>
+                    <h2>핫 게시글</h2>
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </section>
+
                 <aside>
+
         </div>
 
         <% include ../partials/footer.ejs %>

@@ -28,12 +28,14 @@ login = async (req, res, next) => {
   } catch (e) {
     next(e);
   }
+
   if (!checkId) {
     return res.status(404).json('아이디 혹은 패스워드가 일치하지 않습니다.');
   }
 
   let { no, hash } = checkId.dataValues;
   let checkPw;
+  
   try {
     checkPw = await bcrypt.compare(pw, hash);
   } catch (e) {

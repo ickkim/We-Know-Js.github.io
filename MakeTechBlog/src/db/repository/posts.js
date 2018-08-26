@@ -1,8 +1,9 @@
 const { Posts } = require('../../db');
 
-const findAllList = (pageNum = 10) => {
+findAllList = (pageNum = 10, offset = 0) => {
   return Posts.findAll({
     limit: pageNum,
+    offset,
     attributes: [
       'no',
       'title',
@@ -21,7 +22,7 @@ const findAllList = (pageNum = 10) => {
   });
 };
 
-const creatPost = ({ title, tag, content }) => {
+creatPost = ({ title, tag, content }) => {
   return Posts.create({
     title: title,
     tag: tag,
@@ -29,11 +30,11 @@ const creatPost = ({ title, tag, content }) => {
   });
 };
 
-const findById = id => {
+findById = id => {
   return Posts.findById(id);
 };
 
-const deleteById = id => {
+deleteById = id => {
   return Posts.destroy({
     where: {
       no: id,
@@ -41,7 +42,7 @@ const deleteById = id => {
   });
 };
 
-const updateById = (id, title, content, categories) => {
+updateById = (id, title, content, categories) => {
   return Posts.update(
     {
       title,
@@ -52,10 +53,15 @@ const updateById = (id, title, content, categories) => {
   );
 };
 
+totalCount = () => {
+  return Posts.count();
+};
+
 module.exports = {
   findById,
   deleteById,
   findAllList,
   creatPost,
   updateById,
+  totalCount,
 };

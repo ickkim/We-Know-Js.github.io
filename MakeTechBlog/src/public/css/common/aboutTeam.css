@@ -1,6 +1,6 @@
 article {
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto 10px;
   min-height: 80vh;
 }
 
@@ -9,7 +9,7 @@ article h1 {
   padding: 10px;
   text-align: center;
   font-weight: bold;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 article p {
@@ -29,7 +29,7 @@ section.member {
 }
 
 section.member .awesome {
-  margin: 0 auto;
+  margin: 0 auto 20px;
   border: 1px solid burlywood;
   height: 200px;
   flex-grow: 1;
