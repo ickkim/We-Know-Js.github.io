@@ -20,10 +20,6 @@ router
 
 router.get('/new', ctrl.createView);
 
-router.get('/file', (req, res, next) => {
-  return res.render('filetest');
-});
-
 router.post('/file', upload.array('photo'), ctrl.uploadImage);
 
 router
@@ -32,6 +28,10 @@ router
   .put(ctrl.update)
   .delete(ctrl.remove);
 
-router.get('/:id/new', ctrl.createSubPostView);
+router.get('/:id/new', ctrl.createSubView);
+
+router.route('/:id/').post(ctrl.createSubPost);
+
+router.route('/:id/:subId').get(ctrl.showSubPost);
 
 module.exports = router;

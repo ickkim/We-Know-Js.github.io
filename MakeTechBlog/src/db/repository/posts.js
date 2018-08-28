@@ -39,7 +39,7 @@ creatPost = ({ title, tag, content, category }) => {
   });
 };
 
-findById = id => {
+postFindById = id => {
   return Posts.findById(id, {
     attributes: [
       'no',
@@ -84,6 +84,7 @@ totalCount = () => {
 
 module.exports = {
   findById,
+  postFindById,
   deleteById,
   findAllList,
   creatPost,

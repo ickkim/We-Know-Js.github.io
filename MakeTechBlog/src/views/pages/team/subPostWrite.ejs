@@ -76,13 +76,13 @@
                     const xhr = new XMLHttpRequest();
                     xhr.onload = function () {
                         if (xhr.status === 200 || xhr.status === 201) {
-                            location.href = '/posts/'
+                            location.href = '/posts/<%=no%>'
                         } else {
                             alert(`작성 실패\n${xhr.responseText}`)
                         }
                     }
 
-                    xhr.open('POST', '/posts/', true);
+                    xhr.open('POST', '/posts/<%=no%>', true);
                     xhr.setRequestHeader('Content-type', 'application/json');
                     xhr.send(JSON.stringify(params))
 

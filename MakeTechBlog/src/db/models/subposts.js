@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT('long'),
         allowNull: false,
       },
+      count: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        defaultValue: 0,
+        allowNull: false,
+      },
     },
     {
       freezeTableName: true,
