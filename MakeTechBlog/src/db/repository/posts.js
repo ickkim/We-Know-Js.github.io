@@ -1,5 +1,13 @@
 const { Posts } = require('../../db');
 
+findHotPost = () => {
+  return Posts.findAll({
+    limit: 5,
+    attributes: ['no', 'title'],
+    order: [['count', 'desc']],
+  });
+};
+
 findAllList = (pageNum = 10, offset = 0) => {
   return Posts.findAll({
     limit: pageNum,
@@ -13,7 +21,7 @@ findAllList = (pageNum = 10, offset = 0) => {
         Posts.sequelize.fn(
           'date_format',
           Posts.sequelize.col('created_at'),
-          '%Y-%m-%d',
+          '%Y.%m.%d',
         ),
         'created_at',
       ],
@@ -31,7 +39,23 @@ creatPost = ({ title, tag, content }) => {
 };
 
 findById = id => {
-  return Posts.findById(id);
+  return Posts.findById(id, {
+    attributes: [
+      'no',
+      'title',
+      'tag',
+      'content',
+      'count',
+      [
+        Posts.sequelize.fn(
+          'date_format',
+          Posts.sequelize.col('created_at'),
+          '%Y-%m-%d',
+        ),
+        'created_at',
+      ],
+    ],
+  });
 };
 
 deleteById = id => {
@@ -64,4 +88,5 @@ module.exports = {
   creatPost,
   updateById,
   totalCount,
+  findHotPost,
 };

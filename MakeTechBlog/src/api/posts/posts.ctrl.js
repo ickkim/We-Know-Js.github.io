@@ -21,13 +21,14 @@ create = async (req, res, next) => {
 
 list = async (req, res, next) => {
   let postList, totalCnt, pagingInfo;
+  let hotPost;
 
   try {
     totalCnt = await postDB.totalCount();
+    hotPost = await postDB.findHotPost();
   } catch (e) {
     next(e);
   }
-
   pagingInfo = paging.paging(totalCnt, req.query);
   const offset = (pagingInfo.page - 1) * pagingInfo.perPageNum;
   try {
@@ -36,11 +37,18 @@ list = async (req, res, next) => {
     next(e);
   }
 
-  return res.render('postsList', { postList, pagingInfo });
+  return res.render('postsList', { postList, pagingInfo, hotPost });
 };
 
 show = async (req, res, next) => {
-  let post = await postDB.findById(req.params.id);
+  let post;
+  try {
+    post = await postDB.findById(req.params.id);
+    if (!post) return next();
+    await post.updateAttributes({ count: post.dataValues.count + 1 });
+  } catch (e) {
+    next(e);
+  }
   return res.render('postsRead', { post });
 };
 

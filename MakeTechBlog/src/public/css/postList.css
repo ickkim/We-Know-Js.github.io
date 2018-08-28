@@ -1,10 +1,11 @@
 .postArea {
   display: flex;
   flex-direction: row;
-  max-width: 1400px;
+  max-width: 1500px;
   width: 90%;
   min-height: 80vh;
-  margin: 0 auto;
+  margin: 0 auto 30px;
+  padding: 30px;
 }
 
 .postArea > article {
@@ -104,19 +105,6 @@ section .postContent {
   margin-bottom: 10px;
 }
 
-aside section {
-  padding: 10px;
-  box-sizing: border-box;
-  border: 1px solid pink;
-  margin-bottom: 30px;
-}
-
-aside section > h2 {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
 section .paging {
   display: flex;
   flex-direction: row;
@@ -145,4 +133,35 @@ section .paging .pagingArrow {
 
 a.targetPage {
   color: pink;
+}
+
+aside section {
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 10px pink;
+  margin-bottom: 30px;
+}
+
+aside section > h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+ul li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+ul li span:first-child {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+li span:nth-child(2) {
+  width: 200px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

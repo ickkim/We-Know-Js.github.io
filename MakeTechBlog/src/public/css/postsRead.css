@@ -1,30 +1,43 @@
 section.readArea {
+  min-height: 80vh;
+  max-width: 1300px;
+  margin: 10px auto 50px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  padding: 30px 50px;
+}
+
+@media (max-width: 1300px) {
+  section.readArea {
     min-height: 80vh;
-    max-width: 1300px;
-    margin: 100px auto 0;
+    margin: 70px 10px 50px;
+  }
 }
 
 section .intro {
-    padding: 10px;
-    box-sizing: border-box;
-    font-family: 'Do Hyeon', sans-serif;
+  box-sizing: border-box;
+  font-family: 'Do Hyeon', sans-serif;
 }
 
 section .intro h1 {
-    font-size: 2rem;
-    color: black;
-    margin-bottom: 30px
+  font-size: 2rem;
+  color: black;
+  margin-bottom: 10px;
+}
+
+section .intro dl {
+  display: block;
+  text-align: right;
 }
 
 section .intro dt {
-    display: inline-block
+  display: inline-block;
 }
 
 section .intro dd {
-    display: inline-block
+  display: inline-block;
 }
 
-section>p {
-    margin: 70px auto 0;
-    height: 500px;
+section #content {
+  margin: 50px auto 100px;
 }

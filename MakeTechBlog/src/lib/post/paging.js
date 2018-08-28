@@ -7,7 +7,8 @@
 
 function paging(totalCnt, { page = 1, perPageNum = 20 }) {
   const pageListNum = 10;
-  let totalPage = Math.ceil(totalCnt / pageListNum);
+  let totalPage = Math.floor(totalCnt / perPageNum);
+  totalCnt % perPageNum ? totalPage++ : '';
   !totalPage ? totalPage++ : '';
 
   if (totalPage < page) page = totalPage;
