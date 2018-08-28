@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const ctrl = require('./auth.ctrl');
-const { isLogin } = require('../../lib/validation/isAuth');
+const { isLogin } = require('../../lib/middleware/isAuth');
 
 router
   .route('/login')
-  .get(isLogin, ctrl.loginView)
-  .post(isLogin, ctrl.login);
+  .get(ctrl.loginView)
+  .post(ctrl.login);
 
 router
   .route('/register')
-  .get(isLogin, ctrl.registerView)
-  .post(isLogin, ctrl.register);
+  .get(ctrl.registerView)
+  .post(ctrl.register);
 
 router.get('/logout', ctrl.logout);
 

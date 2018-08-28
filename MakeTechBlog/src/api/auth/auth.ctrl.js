@@ -5,7 +5,7 @@ const validation = require('../../lib/validation/validation');
 const bcrypt = require('bcrypt');
 
 loginView = (req, res, next) => {
-  res.render('login');
+  res.render('noauth/login');
 };
 
 login = async (req, res, next) => {
@@ -35,7 +35,7 @@ login = async (req, res, next) => {
 
   let { no, hash } = checkId.dataValues;
   let checkPw;
-  
+
   try {
     checkPw = await bcrypt.compare(pw, hash);
   } catch (e) {
@@ -49,6 +49,10 @@ login = async (req, res, next) => {
   req.session.isLogin = true;
   req.session.userid = no;
   return res.status(200).end();
+};
+
+registerView = (req, res) => {
+  return res.render('noauth/register');
 };
 
 register = async (req, res, next) => {
@@ -104,10 +108,6 @@ register = async (req, res, next) => {
   }
 
   return res.status(200).end();
-};
-
-registerView = (req, res) => {
-  return res.render('register');
 };
 
 logout = (req, res, next) => {

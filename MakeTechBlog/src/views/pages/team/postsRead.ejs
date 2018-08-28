@@ -5,16 +5,16 @@
     <title>WeKnowJS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include ../../partials/noauth/essentialCss.ejs %>
-        <link rel='stylesheet' href='/css/postsRead.css' />
+    <% include ../../partials/team/essentialCss.ejs %>
+        <link rel='stylesheet' href='/css/common/postsRead.css' />
         <% include ../../partials/editorViewer.ejs %>
             <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-            <link rel='stylesheet' href='/css/noauth/header.css' />
+            <link rel='stylesheet' href='/css/team/header.css' />
 
 </head>
 
 <body>
-    <% include ../../partials/noauth/header.ejs %>
+    <% include ../../partials/team/header.ejs %>
 
 
         <article class="post">
@@ -49,15 +49,15 @@
                         </div>
 
                         <div class='subPosts'>
-                            <a href='/posts/<%=home%>'>Home</a>
+                            <a href='/posts/<%=post.no%>'>Home</a>
                             <% subPost.forEach((item,index) => { %>
-                                <a href='/posts/<%=home%>/<%=item.no %>'><%=item.title %></a>
+                                <a href='/posts/<%=post.no%>/<%=item.no %>'><%=item.title %></a>
                                 <% }) %>
                         </div>
                     </div>
 
                     <div class='subPostAdd'>
-                        <a href="/posts/<%=home%>/new">
+                        <a href="/posts/<%=post.no%>/new">
                             <input type="button" value='add subPage' />
                         </a>
 
@@ -78,11 +78,12 @@
             <noscript>Please enable JavaScript</noscript>
 
             <script>
-
-                // var disqus_config = function () {
-                // this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-                // this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                // };
+                /*
+                var disqus_config = function () {
+                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+                */
                 (function () { // DON'T EDIT BELOW THIS LINE
                     var d = document, s = d.createElement('script');
                     s.src = 'https://weknowjs-xyz.disqus.com/embed.js';

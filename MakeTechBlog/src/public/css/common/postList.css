@@ -8,6 +8,25 @@
   padding: 30px;
 }
 
+.addButton {
+  width: inherit;
+}
+
+.addButton a {
+  display: block;
+  width: 100%;
+}
+
+.addButton input[type='button'] {
+  color: white;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background-color: violet;
+  font-size: 1.5rem;
+}
+
 .postArea > article {
   flex-grow: 1;
   margin-right: 100px;

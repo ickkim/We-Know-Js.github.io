@@ -8,6 +8,7 @@ article section {
   padding: 50px;
   width: 500px;
   box-shadow: 0px 0px 5px 1px #e9ecef;
+  margin-bottom: 20px;
 }
 
 article section label {

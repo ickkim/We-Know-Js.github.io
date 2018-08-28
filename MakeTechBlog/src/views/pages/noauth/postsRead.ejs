@@ -5,16 +5,16 @@
     <title>WeKnowJS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include ../partials/noauth/essentialCss.ejs %>
-        <link rel='stylesheet' href='/css/postsRead.css' />
-        <% include ../partials/editorViewer.ejs %>
+    <% include ../../partials/noauth/essentialCss.ejs %>
+        <link rel='stylesheet' href='/css/common/postsRead.css' />
+        <% include ../../partials/editorViewer.ejs %>
             <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
             <link rel='stylesheet' href='/css/noauth/header.css' />
 
 </head>
 
 <body>
-    <% include ../partials/noauth/header.ejs %>
+    <% include ../../partials/noauth/header.ejs %>
 
 
         <article class="post">
@@ -56,12 +56,7 @@
                         </div>
                     </div>
 
-                    <div class='subPostAdd'>
-                        <a href="/posts/<%=post.no%>/new">
-                            <input type="button" value='add subPage' />
-                        </a>
 
-                    </div>
                 </div>
 
             </section>
@@ -73,7 +68,7 @@
         </article>
 
 
-        <% include ../partials/footer.ejs %>
+        <% include ../../partials/footer.ejs %>
 
             <noscript>Please enable JavaScript</noscript>
 

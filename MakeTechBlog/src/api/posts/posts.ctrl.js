@@ -4,27 +4,17 @@ const paging = require('../../lib/post/paging');
 const validation = require('../../lib/validation/validation');
 
 createView = (req, res) => {
-  return res.render('postWrite');
+  return res.render('team/postWrite');
 };
 
 createSubView = (req, res) => {
-  const id = req.params.id;
-
-  if (!validation.isUINT(id)) {
-    return res.status(400).json('입력이 올바르지 않습니다.');
-  }
-
-  return res.render('team/subPostWrite', { no: id });
+  return res.render('team/subPostWrite', { no: req.params.id });
 };
 
 create = async (req, res, next) => {
   let { title, tag, content, category } = req.body;
 
   if (!validation.arrayElementIsString([title, tag, content, category])) {
-    return res.status(400).json('입력이 올바르지 않습니다.');
-  }
-
-  if (!validation.isUINT(category)) {
     return res.status(400).json('입력이 올바르지 않습니다.');
   }
 
@@ -84,7 +74,9 @@ list = async (req, res, next) => {
     next(e);
   }
 
-  return res.render('postsList', { postList, pagingInfo, hotPost });
+  if (req.session.isLogin)
+    return res.render('team/postsList', { postList, pagingInfo, hotPost });
+  return res.render('noauth/postsList', { postList, pagingInfo, hotPost });
 };
 
 show = async (req, res, next) => {
@@ -99,12 +91,13 @@ show = async (req, res, next) => {
     next(e);
   }
 
-  return res.render('postsRead', { post, subPost });
+  if (req.session.isLogin)
+    return res.render('team/postsRead', { post, subPost });
+  return res.render('noauth/postsRead', { post, subPost });
 };
 
 showSubPost = async (req, res, next) => {
   const { id, subId } = req.params;
-  console.log(id, subId);
   let post, subPost;
   try {
     post = await subPostDB.findDetailByPostNo(subId);

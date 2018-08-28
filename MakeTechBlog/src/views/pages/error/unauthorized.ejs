@@ -5,19 +5,19 @@
     <title>WeKnowJS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include ../partials/essentialCss.ejs %>
+    <% include ../../partials/noauth/essentialCss.ejs %>
         <link rel='stylesheet' href='/css/404.css' />
 
 </head>
 
 <body>
-    <% include ../partials/header.ejs %>
+    <% include ../../partials/noauth/header.ejs %>
 
         <article>
-            <h1>404 NOT FOUND</h1>
-            <p> 없는 페이지 입니다.. </p>
+            <h1>401 Unauthorized</h1>
+            <p> Unauthorized 잘못된 요청입니다. </p>
         </article>
-        <% include ../partials/footer.ejs %>
+        <% include ../../partials/footer.ejs %>
 
 </body>
 
