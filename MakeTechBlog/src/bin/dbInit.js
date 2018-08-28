@@ -19,7 +19,16 @@ grade = () => {
   ]);
 };
 
+categories = () => {
+  db.Categories.bulkCreate([
+    { explain: 'TeamStudy' },
+    { explain: 'PersonStudy' },
+    { explain: 'SubProject' },
+  ]);
+};
+
 module.exports = {
   post,
   grade,
+  categories,
 };

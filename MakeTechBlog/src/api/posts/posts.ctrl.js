@@ -1,14 +1,34 @@
 const postDB = require('../../db/repository/posts');
 const paging = require('../../lib/post/paging');
+const validation = require('../../lib/validation/validation');
 
 createView = (req, res) => {
   return res.render('postWrite');
 };
 
+createSubPostView = (req, res) => {
+  return res.render('team/subPostWrite');
+};
+
 create = async (req, res, next) => {
-  let { title, tag, content } = req.body;
-  if (!title || !tag || !content) {
-    return res.status(400).end('입력이 올바르지 않습니다.');
+  let { title, tag, content, category } = req.body;
+
+  if (!validation.arrayElementIsString([title, tag, content, category])) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  if (!validation.isUINT(category)) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  if (
+    !(validation.isLength(title, 1, 100) && validation.isLength(tag, 1, 100))
+  ) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  if (!validation.checkTag(tag)) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
   }
 
   try {
@@ -66,6 +86,7 @@ uploadImage = (req, res, next) => {
 
 module.exports = {
   createView,
+  createSubPostView,
   create,
   list,
   show,

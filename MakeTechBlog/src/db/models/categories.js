@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const categories = sequelize.define(
-    'categories',
+  const Categories = sequelize.define(
+    'Categories',
     {
       no: {
         type: DataTypes.INTEGER,
@@ -21,6 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  categories.associate = function(models) {};
-  return categories;
+  Categories.associate = function(models) {
+    Categories.hasMany(models.Posts);
+  };
+  return Categories;
 };

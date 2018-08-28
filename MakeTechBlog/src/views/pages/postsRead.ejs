@@ -17,8 +17,8 @@
     <% include ../partials/noauth/header.ejs %>
 
 
-        <article>
-            <section class='readArea'>
+        <article class="post">
+            <section class='title'>
                 <div class='intro'>
                     <h1>
                         <%= post.title %>
@@ -35,20 +35,49 @@
                             </dd>
                         </dt>
                     </dl>
+                </div>
+            </section>
 
 
+            <section class='content'>
+                <div id="content"></div>
+                <div class="side">
+                    <div class='sidePosts'>
+                        <div class='sideTop'>
+                            <h2>Posts</h2>
+                        </div>
+
+                        <div class='subPosts'>
+                            <a href='/posts/<%=post.no%>'>Home</a>
+                            <a href='#'>Lorem3,Lorem1Lorem3,Lorem1Lorem3,Lorem1</a>
+                            <a href='#'>Lorem4,Lorem1</a>
+                            <a href='#'>Lorem5,Lorem1</a>
+                            <a href='#'>Lorem2,Lorem1</a>
+                            <a href='#'>Lorem3,Lorem1</a>
+                            <a href='#'>Lorem4,Lorem1</a>
+                            <a href='#'>Lorem5,Lorem1</a>
+                            <a href='#'>Lorem2,Lorem1</a>
+                            <a href='#'>Lorem3,Lorem1</a>
+                            <a href='#'>Lorem4,Lorem1</a>
+                            <a href='#'>Lorem5,Lorem1</a>
+                        </div>
+                    </div>
+
+                    <div class='subPostAdd'>
+                        <a href="/posts/<%=post.no%>/new">
+                            <input type="button" value='add subPage' />
+                        </a>
+
+                    </div>
                 </div>
 
-                <div id="content"></div>
+            </section>
 
 
-
+            <section>
                 <div id="disqus_thread"></div>
-
-
             </section>
         </article>
-
 
 
         <% include ../partials/footer.ejs %>

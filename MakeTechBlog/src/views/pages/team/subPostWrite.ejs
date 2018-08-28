@@ -5,31 +5,21 @@
     <title>WeKnowJS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include ../partials/team/essentialCss.ejs %>
+    <% include ../../partials/team/essentialCss.ejs %>
         <link rel='stylesheet' href='/css/postWrite.css' />
-        <% include ../partials/team/editorWrite.ejs %>
+        <% include ../../partials/team/editorWrite.ejs %>
 
 
 </head>
 
 <body>
-    <% include ../partials/team/header.ejs %>
+    <% include ../../partials/team/header.ejs %>
 
         <article>
             <section>
                 <div class='custom title'>
                     <input type='text' id='title' name='title' placeholder='Title' /> </div>
-                <div class='custom tag'>
-                    <input type='text' id='tag' name='tag' placeholder='Tag' /> </div>
-                <div class='category'>
-                    <label for="category">category</label>
-                    <select name="category" id='category'>
-                        <option value="1">TeamStudy</option>
-                        <option value="2">PersonStudy</option>
-                        <option value="3">SubProject</option>
-                    </select>
 
-                </div>
                 <div id="editSection" id='content' name='content'>
                 </div>
 
@@ -38,7 +28,7 @@
             </section>
         </article>
 
-        <% include ../partials/footer.ejs %>
+        <% include ../../partials/footer.ejs %>
 
             <script>
                 let editor = new tui.Editor({
@@ -79,15 +69,9 @@
 
                 function submit() {
                     const temp = editor.getValue().replace(/\`/g, 'ㅥ')
-                    const category = document.getElementById('category');
-                    const categoryText = '#' + category[category.value - 1].text;
-                    const tag = categoryText + ' #' + document.getElementById('tag').value.trim().replace(/\s*,+\s*|\s+/g, ' #');
-                    console.log(categoryText);
                     const params = {
                         title: document.getElementById('title').value,
-                        tag: tag,
                         content: temp,
-                        category: category.value
                     }
                     const xhr = new XMLHttpRequest();
                     xhr.onload = function () {

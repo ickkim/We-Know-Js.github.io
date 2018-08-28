@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Posts = sequelize.define(
-    'Posts',
+  const SubPosts = sequelize.define(
+    'SubPosts',
     {
       no: {
         type: DataTypes.INTEGER,
@@ -9,31 +9,23 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       title: { type: DataTypes.STRING(100), allowNull: false },
-      tag: { type: DataTypes.STRING(100), allowNull: false },
       content: {
         type: DataTypes.TEXT('long'),
-        allowNull: false,
-      },
-      count: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        defaultValue: 0,
         allowNull: false,
       },
     },
     {
       freezeTableName: true,
-      tableName: 'tbl_posts',
+      tableName: 'tbl_subposts',
       underscored: true,
       timestamps: true,
       paranoid: true,
     },
   );
 
-  Posts.associate = function(models) {
-    Posts.belongsTo(models.Users, { foreignKey: 'writer' });
-    Posts.belongsTo(models.Categories);
-    Posts.hasMany(models.SubPosts);
+  SubPosts.associate = function(models) {
+    SubPosts.belongsTo(models.Posts);
   };
 
-  return Posts;
+  return SubPosts;
 };

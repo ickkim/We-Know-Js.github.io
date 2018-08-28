@@ -22,8 +22,24 @@ isLength = (val, min, max = Number.MAX_SAFE_INTEGER) => {
   return valLen > min && valLen < max;
 };
 
+isUINT = num => {
+  num = parseInt(num);
+  return num > 0;
+};
+
+checkTag = tag => {
+  let array = tag.split(' ');
+  console.log(array);
+  for (let item of array) {
+    if (item[0] !== '#') return false;
+  }
+  return true;
+};
+
 module.exports = {
   isString,
   arrayElementIsString,
   isLength,
+  isUINT,
+  checkTag,
 };

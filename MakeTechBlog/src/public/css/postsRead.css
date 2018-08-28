@@ -1,17 +1,13 @@
-section.readArea {
+article {
   min-height: 80vh;
-  max-width: 1300px;
+  max-width: 1500px;
   margin: 10px auto 50px;
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   padding: 30px 50px;
 }
 
-@media (max-width: 1300px) {
-  section.readArea {
-    min-height: 80vh;
-    margin: 70px 10px 50px;
-  }
+section.title {
+  margin-bottom: 50px;
 }
 
 section .intro {
@@ -27,7 +23,6 @@ section .intro h1 {
 
 section .intro dl {
   display: block;
-  text-align: right;
 }
 
 section .intro dt {
@@ -38,6 +33,85 @@ section .intro dd {
   display: inline-block;
 }
 
+article section.content {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 100px;
+}
+
+article section.content #content {
+  flex-basis: 100%;
+}
+
+article section.content .side {
+  flex-basis: 250px;
+  flex-shrink: 0;
+  margin-left: 50px;
+}
+
+.sidePosts {
+  border-radius: 5px;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.3);
+}
+
+sidePosts .sideTop {
+  background-color: #d1d5da;
+}
+
+.sidePosts .sideTop h2 {
+  text-align: center;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d1d5da;
+  box-sizing: border-box;
+}
+
+.sidePosts .subPosts {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.sidePosts .subPosts a {
+  display: block;
+  overflow: hidden;
+  width: inherit;
+  max-width: 250px;
+  padding: 10px 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sidePosts .subPosts a:hover {
+  color: #e67700;
+}
+
+a + a {
+  border-top: 1px solid #cccccc;
+}
+
+.side input[type='button'] {
+  margin-top: 20px;
+  width: 250px;
+  padding: 10px 5px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background-color: violet;
+  color: white;
+  font-size: 1.3rem;
+}
+
+/* 
+@media (max-width: 1300px) {
+  section.readArea {
+    min-height: 80vh;
+    margin: 70px 10px 50px;
+  }
+}
+
+
 section #content {
   margin: 50px auto 100px;
-}
+} */

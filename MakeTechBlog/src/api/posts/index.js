@@ -32,4 +32,6 @@ router
   .put(ctrl.update)
   .delete(ctrl.remove);
 
+router.get('/:id/new', ctrl.createSubPostView);
+
 module.exports = router;

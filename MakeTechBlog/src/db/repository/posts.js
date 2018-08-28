@@ -30,11 +30,12 @@ findAllList = (pageNum = 10, offset = 0) => {
   });
 };
 
-creatPost = ({ title, tag, content }) => {
+creatPost = ({ title, tag, content, category }) => {
   return Posts.create({
-    title: title,
-    tag: tag,
-    content: content,
+    title,
+    tag,
+    content,
+    category_no: category,
   });
 };
 
