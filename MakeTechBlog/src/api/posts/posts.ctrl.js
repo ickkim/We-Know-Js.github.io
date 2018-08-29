@@ -1,7 +1,6 @@
 const postDB = require('../../db/repository/posts');
 const subPostDB = require('../../db/repository/subPost');
-const paging = require('../../lib/post/paging');
-const validation = require('../../lib/validation/validation');
+const libPost = require('../../lib/validation/post');
 
 createView = (req, res) => {
   return res.render('team/postWrite');
@@ -12,24 +11,12 @@ createSubView = (req, res) => {
 };
 
 create = async (req, res, next) => {
-  let { title, tag, content, category } = req.body;
-
-  if (!validation.arrayElementIsString([title, tag, content, category])) {
-    return res.status(400).json('입력이 올바르지 않습니다.');
-  }
-
-  if (
-    !(validation.isLength(title, 1, 100) && validation.isLength(tag, 1, 100))
-  ) {
-    return res.status(400).json('입력이 올바르지 않습니다.');
-  }
-
-  if (!validation.checkTag(tag)) {
+  if (!libPost.postValidation(req.body)) {
     return res.status(400).json('입력이 올바르지 않습니다.');
   }
 
   try {
-    let result = await postDB.creatPost(req.body);
+    let result = await postDB.creatPost(req.body, req.session.userid);
     return res.status(201).json(result);
   } catch (e) {
     return next(e);
@@ -37,14 +24,9 @@ create = async (req, res, next) => {
 };
 
 createSubPost = async (req, res, next) => {
-  let { title, content } = req.body;
   let id = req.params.id;
 
-  if (!validation.arrayElementIsString([title, content])) {
-    return res.status(400).json('입력이 올바르지 않습니다.');
-  }
-
-  if (!validation.isLength(title, 1, 100)) {
+  if (!libPost.subPostValidation(req.body)) {
     return res.status(400).json('입력이 올바르지 않습니다.');
   }
 
@@ -68,7 +50,7 @@ list = async (req, res, next) => {
     next(e);
   }
 
-  pagingInfo = paging.paging(totalCnt, req.query);
+  pagingInfo = libPost.paging(totalCnt, req.query);
   const offset = (pagingInfo.page - 1) * pagingInfo.perPageNum;
   try {
     postList = await postDB.findAllList(pagingInfo.perPageNum, offset);
@@ -126,7 +108,6 @@ showSubPost = async (req, res, next) => {
 updateView = async (req, res, next) => {
   const { id } = req.params;
   let post;
-  console.log(id);
   try {
     post = await postDB.findById(id);
     if (!post) return next();
@@ -140,22 +121,13 @@ update = async (req, res, next) => {
   let { id } = req.params;
   let { title, tag, content, category } = req.body;
 
-  if (!validation.arrayElementIsString([title, tag, content, category])) {
+  if (!libPost.postValidation(req.body)) {
     return res.status(400).json('입력이 올바르지 않습니다.');
   }
 
-  if (
-    !(validation.isLength(title, 1, 100) && validation.isLength(tag, 1, 100))
-  ) {
-    return res.status(400).json('입력이 올바르지 않습니다.');
-  }
+  let result;
+  let updateVal = { title, tag, content, category_no: category };
 
-  if (!validation.checkTag(tag)) {
-    return res.status(400).json('입력이 올바르지 않습니다.');
-  }
-
-  let result,
-    updateVal = { title, tag, content, category_no: category };
   try {
     result = await postDB.findById(id);
     if (!result) return next();
@@ -163,11 +135,22 @@ update = async (req, res, next) => {
   } catch (e) {
     return next(e);
   }
+
   return res.status(204).end();
 };
 
-remove = (req, res, next) => {
-  return res.send('');
+remove = async (req, res, next) => {
+  let { id } = req.params;
+  let result;
+  try {
+    result = await postDB.findById(id);
+    if (!result) return next();
+    console.log(result);
+    await result.destroy();
+  } catch (e) {
+    return next(e);
+  }
+  res.status(204).end();
 };
 
 uploadImage = (req, res, next) => {

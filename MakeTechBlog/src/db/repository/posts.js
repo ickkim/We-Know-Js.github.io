@@ -36,12 +36,15 @@ findAllList = (pageNum = 10, offset = 0) => {
   });
 };
 
-creatPost = ({ title, tag, content, category }) => {
+creatPost = ({ title, tag, content, category }, writer) => {
+  console.log('writer는');
+  console.log(writer);
   return Posts.create({
     title,
     tag,
     content,
     category_no: category,
+    writer,
   });
 };
 

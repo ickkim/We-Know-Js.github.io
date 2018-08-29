@@ -93,20 +93,20 @@
                             </li>
                             <% }) %>
                     </ul>
+                </section>
 
-                    <section class='hotSubPost'>
-                        <h2>SubPost TOP5</h2>
-                        <ul>
-                            <% hotSubPost.forEach((item,index) => { %>
-                                <li>
-                                    <a href='/posts/<%=item.post_no%>/<%=item.no%>'>
-                                        <span><%= index+1 %></span>
-                                        <span><%= item.title %></span>
-                                    </a>
-                                </li>
-                                <% }) %>
-                        </ul>
-                    </section>
+                <section class='hotSubPost'>
+                    <h2>SubPost TOP5</h2>
+                    <ul>
+                        <% hotSubPost.forEach((item,index) => { %>
+                            <li>
+                                <a href='/posts/<%=item.post_no%>/<%=item.no%>'>
+                                    <span><%= index+1 %></span>
+                                    <span><%= item.title %></span>
+                                </a>
+                            </li>
+                            <% }) %>
+                    </ul>
                 </section>
 
             </aside>

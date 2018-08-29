@@ -28,7 +28,7 @@ router.post('/file', upload.array('photo'), ctrl.uploadImage); // todo 로그인
 router
   .route('/:id')
   .get(checkPram.paramIsINT, ctrl.show)
-  .put(Checkcors, checkPram.paramIsINT, ctrl.update)
+  .put(Checkcors, isLogin, checkPram.paramIsINT, ctrl.update)
   .delete(Checkcors, isLogin, checkPram.paramIsINT, ctrl.remove);
 
 router.get('/:id/new', isLogin, checkPram.paramIsINT, ctrl.createSubView);

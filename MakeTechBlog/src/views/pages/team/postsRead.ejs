@@ -42,7 +42,7 @@
                     <a href='/posts/<%= post.no%>/edit'>
                         <input type="button" value='수정하기' id='update' />
                     </a>
-                    <input type="button" value='삭제하기' id='delete' onclick="delete()" />
+                    <input type="button" value='삭제하기' id='delete' onclick="deletePost()" />
                 </div>
             </section>
 
@@ -112,6 +112,24 @@
                         maxHeight: 300
                     }]
                 });
+
+                function deletePost() {
+                    let confirmflag = confirm("confirm 테스트 확인");
+                    if (confirmflag) {
+                        const xhr = new XMLHttpRequest();
+                        xhr.onload = function () {
+                            if (xhr.status === 200 || xhr.status === 204) {
+                                alert('삭제성공')
+                                location.href = '/posts/'
+                            } else {
+                                alert(`작성 실패\n${xhr.responseText}`)
+                            }
+                        }
+                        xhr.open('DELETE', '/posts/<%=post.no%>', true);
+                        xhr.setRequestHeader('Content-type', 'application/json');
+                        xhr.send()
+                    }
+                }
 
             </script>
 
