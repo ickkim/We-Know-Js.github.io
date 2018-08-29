@@ -3,6 +3,7 @@ const router = express.Router();
 const ctrl = require('./posts.ctrl');
 const checkPram = require('../../lib/validation/isInteger');
 const { isLogin } = require('../../lib/middleware/isAuth');
+const { Checkcors } = require('../../lib/middleware/cors');
 
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -18,7 +19,7 @@ const upload = multer({ storage });
 router
   .route('/')
   .get(ctrl.list)
-  .post(isLogin, ctrl.create);
+  .post(Checkcors, isLogin, ctrl.create);
 
 router.get('/new', isLogin, ctrl.createView);
 
@@ -27,13 +28,13 @@ router.post('/file', upload.array('photo'), ctrl.uploadImage); // todo 로그인
 router
   .route('/:id')
   .get(checkPram.paramIsINT, ctrl.show)
-  .put(isLogin, checkPram.paramIsINT, ctrl.update)
-  .delete(isLogin, checkPram.paramIsINT, ctrl.remove);
+  .put(Checkcors, isLogin, checkPram.paramIsINT, ctrl.update)
+  .delete(Checkcors, isLogin, checkPram.paramIsINT, ctrl.remove);
 
 router.get('/:id/new', isLogin, checkPram.paramIsINT, ctrl.createSubView);
-
-router.route('/:id/').post(isLogin, checkPram.paramIsINT, ctrl.createSubPost);
-
+router
+  .route('/:id/')
+  .post(Checkcors, isLogin, checkPram.paramIsINT, ctrl.createSubPost);
 router.route('/:id/:subId').get(checkPram.paramIsINT, ctrl.showSubPost);
 
 module.exports = router;

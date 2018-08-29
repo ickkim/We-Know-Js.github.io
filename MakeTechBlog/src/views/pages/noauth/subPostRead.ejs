@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% include ../../partials/noauth/essentialCss.ejs %>
-        <link rel='stylesheet' href='/css/postsRead.css' />
+        <link rel='stylesheet' href='/css/common/postsRead.css' />
         <% include ../../partials/editorViewer.ejs %>
             <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
             <link rel='stylesheet' href='/css/noauth/header.css' />
@@ -56,12 +56,7 @@
                         </div>
                     </div>
 
-                    <div class='subPostAdd'>
-                        <a href="/posts/<%=home%>/new">
-                            <input type="button" value='add subPage' />
-                        </a>
 
-                    </div>
                 </div>
 
             </section>
@@ -89,11 +84,8 @@
                     s.setAttribute('data-timestamp', +new Date());
                     (d.head || d.body).appendChild(s);
                 })();
-
                 var content = `<%= post.content %>`
-                console.log(content);
                 content = content.replace(/ㅥ/g, '\`').replace(/&gt;/g, '>').replace(/&#39;/g, '\'').replace(/&lt;/g, '<').replace(/&#34;/g, '\"')
-                console.log(content);
                 var editor = new tui.Editor({
                     el: document.querySelector('#content'),
                     initialValue: content,

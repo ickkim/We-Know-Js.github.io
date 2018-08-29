@@ -41,6 +41,7 @@ article section.content {
 
 article section.content #content {
   flex-basis: 100%;
+  font-size: 1.5rem;
 }
 
 article section.content .side {

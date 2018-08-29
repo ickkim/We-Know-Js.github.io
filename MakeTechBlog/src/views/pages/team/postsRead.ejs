@@ -91,15 +91,21 @@
                     (d.head || d.body).appendChild(s);
                 })();
 
+
                 var content = `<%= post.content %>`
-                console.log(content);
                 content = content.replace(/ㅥ/g, '\`').replace(/&gt;/g, '>').replace(/&#39;/g, '\'').replace(/&lt;/g, '<').replace(/&#34;/g, '\"')
-                console.log(content);
                 var editor = new tui.Editor({
                     el: document.querySelector('#content'),
                     initialValue: content,
-                    exts: ['table', 'uml']
+                    exts: ['table', 'uml', {
+                        name: 'chart',
+                        minWidth: 100,
+                        maxWidth: 600,
+                        minHeight: 100,
+                        maxHeight: 300
+                    }]
                 });
+
             </script>
 
 

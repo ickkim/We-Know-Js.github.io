@@ -178,7 +178,7 @@ ul li span:first-child {
 }
 
 li span:nth-child(2) {
-  width: 200px;
+  width: 250px;
   display: inline-block;
   text-overflow: ellipsis;
   white-space: nowrap;

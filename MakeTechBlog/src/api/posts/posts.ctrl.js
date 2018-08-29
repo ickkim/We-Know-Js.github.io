@@ -58,14 +58,16 @@ createSubPost = async (req, res, next) => {
 
 list = async (req, res, next) => {
   let postList, totalCnt, pagingInfo;
-  let hotPost;
+  let hotPost, hotSubPost;
 
   try {
     totalCnt = await postDB.totalCount();
     hotPost = await postDB.findHotPost();
+    hotSubPost = await subPostDB.findHotPost();
   } catch (e) {
     next(e);
   }
+
   pagingInfo = paging.paging(totalCnt, req.query);
   const offset = (pagingInfo.page - 1) * pagingInfo.perPageNum;
   try {
@@ -75,8 +77,19 @@ list = async (req, res, next) => {
   }
 
   if (req.session.isLogin)
-    return res.render('team/postsList', { postList, pagingInfo, hotPost });
-  return res.render('noauth/postsList', { postList, pagingInfo, hotPost });
+    return res.render('team/postsList', {
+      postList,
+      pagingInfo,
+      hotPost,
+      hotSubPost,
+    });
+    
+  return res.render('noauth/postsList', {
+    postList,
+    pagingInfo,
+    hotPost,
+    hotSubPost,
+  });
 };
 
 show = async (req, res, next) => {

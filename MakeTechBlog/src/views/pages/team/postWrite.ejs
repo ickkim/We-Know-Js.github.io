@@ -82,7 +82,6 @@
                     const category = document.getElementById('category');
                     const categoryText = '#' + category[category.value - 1].text;
                     const tag = categoryText + ' #' + document.getElementById('tag').value.trim().replace(/\s*,+\s*|\s+/g, ' #');
-                    console.log(categoryText);
                     const params = {
                         title: document.getElementById('title').value,
                         tag: tag,

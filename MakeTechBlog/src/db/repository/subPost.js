@@ -8,6 +8,14 @@ create = (postNo, { title, content }) => {
   });
 };
 
+findHotPost = () => {
+  return SubPosts.findAll({
+    limit: 5,
+    attributes: ['no', 'title', 'post_no'],
+    order: [['count', 'desc']],
+  });
+};
+
 findByPostNo = id => {
   return SubPosts.findAll({
     where: {
@@ -40,4 +48,5 @@ module.exports = {
   create,
   findByPostNo,
   findDetailByPostNo,
+  findHotPost,
 };

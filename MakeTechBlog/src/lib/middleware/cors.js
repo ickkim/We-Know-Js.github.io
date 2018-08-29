@@ -1,10 +1,11 @@
-function cors(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,');
+function Checkcors(req, res, next) {
+  if (req.headers.origin !== 'https://www.weknowjs.xyz') {
+    return res.status(400).send('cors ban');
+  }
+  console.log(req.headers);
   next();
 }
 
 module.exports = {
-  cors,
+  Checkcors,
 };
