@@ -83,7 +83,7 @@ list = async (req, res, next) => {
       hotPost,
       hotSubPost,
     });
-    
+
   return res.render('noauth/postsList', {
     postList,
     pagingInfo,
@@ -123,8 +123,47 @@ showSubPost = async (req, res, next) => {
   return res.render('noauth/subPostRead', { post, subPost, home: id });
 };
 
-update = (req, res, next) => {
-  return res.send('');
+updateView = async (req, res, next) => {
+  const { id } = req.params;
+  let post;
+  console.log(id);
+  try {
+    post = await postDB.findById(id);
+    if (!post) return next();
+  } catch (e) {
+    next(e);
+  }
+  return res.render('team/postsUpdate', { post });
+};
+
+update = async (req, res, next) => {
+  let { id } = req.params;
+  let { title, tag, content, category } = req.body;
+
+  if (!validation.arrayElementIsString([title, tag, content, category])) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  if (
+    !(validation.isLength(title, 1, 100) && validation.isLength(tag, 1, 100))
+  ) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  if (!validation.checkTag(tag)) {
+    return res.status(400).json('입력이 올바르지 않습니다.');
+  }
+
+  let result,
+    updateVal = { title, tag, content, category_no: category };
+  try {
+    result = await postDB.findById(id);
+    if (!result) return next();
+    result = await result.update(updateVal);
+  } catch (e) {
+    return next(e);
+  }
+  return res.status(204).end();
 };
 
 remove = (req, res, next) => {
@@ -143,6 +182,7 @@ module.exports = {
   list,
   show,
   showSubPost,
+  updateView,
   update,
   remove,
   uploadImage,

@@ -7,10 +7,16 @@ function paramIsINT(req, res, next) {
     }
     return res.status(400).render('error/badRequest');
   }
-  console.log('통과');
+  next();
+}
+
+function isEdit(req, res, next) {
+  let subId = req.params.subId;
+  if (subId === 'edit') return next('route');
   next();
 }
 
 module.exports = {
   paramIsINT,
+  isEdit,
 };

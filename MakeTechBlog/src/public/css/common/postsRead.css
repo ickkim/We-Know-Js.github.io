@@ -7,7 +7,30 @@ article {
 }
 
 section.title {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+}
+
+.title .manageArea {
+  text-align: right;
+  height: 0;
+}
+
+.title .manageArea input[type='button'] {
+  position: relative;
+  bottom: 50px;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background-color: violet;
+  font-size: 1.5rem;
+}
+
+section.title::after {
+  display: block;
+  content: '';
+  margin-top: 20px;
+  border-bottom: 1px solid #e6ebf1;
 }
 
 section .intro {

@@ -1,5 +1,11 @@
 const { Posts } = require('../../db');
 
+findById = id => {
+  return Posts.findById(id, {
+    attributes: ['no', 'title', 'tag', 'content', 'category_no'],
+  });
+};
+
 findHotPost = () => {
   return Posts.findAll({
     limit: 5,

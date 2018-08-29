@@ -37,6 +37,13 @@
                         </dt>
                     </dl>
                 </div>
+
+                <div class="manageArea">
+                    <a href='/posts/<%= post.no%>/edit'>
+                        <input type="button" value='수정하기' id='update' />
+                    </a>
+                    <input type="button" value='삭제하기' id='delete' onclick="delete()" />
+                </div>
             </section>
 
 

@@ -19,21 +19,42 @@
             <section>
                 <div class='custom title'>
                     <input type='text' id='title' name='title' placeholder='Title' /> </div>
+                <div class='custom tag'>
+                    <input type='text' id='tag' name='tag' placeholder='Tag' /> </div>
+                <div class='category'>
+                    <label for="category">category</label>
+                    <select name="category" id='category'>
+                        <option value="1">TeamStudy</option>
+                        <option value="2">PersonStudy</option>
+                        <option value="3">SubProject</option>
+                    </select>
 
+                </div>
                 <div id="editSection" id='content' name='content'>
                 </div>
 
                 <button class='custom' onclick='back()'>뒤로가기 </button>
-                <button class='custom' id='submit' onclick='submit()'>작성하기</button>
+                <button class='custom' onclick='update()'>수정하기</button>
             </section>
         </article>
 
         <% include ../../partials/footer.ejs %>
 
             <script>
+                let content = `<%= post.content %>`
+                let tag = document.getElementById('tag')
+                let title = document.getElementById('title')
+                let category = document.getElementById('category');
+                let tagVal = `<%= post.tag %>`.split(' ')
+                category.value = `<%= post.category_no %>`
+                title.value = `<%= post.title %>`
+                tagVal.shift()
+                tag.value = tagVal.map(item => item.substr(1, item.length)).join(' ')
+                content = content.replace(/ㅥ/g, '\`').replace(/&gt;/g, '>').replace(/&#39;/g, '\'').replace(/&lt;/g, '<').replace(/&#34;/g, '\"')
                 let editor = new tui.Editor({
                     el: document.getElementById('editSection'),
                     initialEditType: 'markdown',
+                    initialValue: content,
                     previewStyle: 'vertical',
                     height: '100vh',
                     exts: ['scrollSync', 'table', 'uml', {
@@ -67,24 +88,33 @@
                     xhr.send(formData);
                 }
 
-                function submit() {
+                function update() {
                     const temp = editor.getValue().replace(/\`/g, 'ㅥ')
+                    const category = document.getElementById('category');
+                    const categoryText = '#' + category[category.value - 1].text;
+                    const tag = categoryText + ' #' + document.getElementById('tag').value.trim().replace(/\s*,+\s*|\s+/g, ' #');
                     const params = {
                         title: document.getElementById('title').value,
+                        tag: tag,
                         content: temp,
+                        category: category.value
                     }
+
                     const xhr = new XMLHttpRequest();
                     xhr.onload = function () {
-                        if (xhr.status === 200 || xhr.status === 201) {
-                            location.href = '/posts/<%=no%>'
+                        if (xhr.status === 200 || xhr.status === 204) {
+                            alert('수정 성공')
+                            location.href = '/posts/<%=post.no%>'
                         } else {
                             alert(`작성 실패\n${xhr.responseText}`)
                         }
                     }
-
-                    xhr.open('POST', '/posts/<%=no%>', true);
+                    console.log(`/posts/<%=post.no%>`);
+                    xhr.open('PUT', '/posts/<%=post.no%>', true);
                     xhr.setRequestHeader('Content-type', 'application/json');
                     xhr.send(JSON.stringify(params))
+
+
 
                 }
 

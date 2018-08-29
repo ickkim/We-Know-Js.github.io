@@ -1,5 +1,3 @@
-// 길이 검증
-
 isString = str => {
   return typeof str === 'string';
 };
@@ -29,7 +27,6 @@ isUINT = num => {
 
 checkTag = tag => {
   let array = tag.split(' ');
-  console.log(array);
   for (let item of array) {
     if (item[0] !== '#') return false;
   }

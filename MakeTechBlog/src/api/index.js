@@ -14,7 +14,7 @@ router.get('/about', async (req, res) => {
 router.use('/auth', require('./auth'));
 router.use('/posts', require('./posts'));
 
-router.use((req, res) => {
+router.use(function NotFound(req, res) {
   if (req.session.isLogin) return res.status(404).render('team/404');
   res.status(404).render('noauth/404');
 });
